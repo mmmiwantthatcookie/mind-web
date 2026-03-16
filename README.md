@@ -1,2 +1,2 @@
 # mind-web
-Web version of the MIND Project
+The web for the project Mind-Industry
