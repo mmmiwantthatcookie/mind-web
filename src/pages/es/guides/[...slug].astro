@@ -1,0 +1,39 @@
+---
+// Spanish guides dynamic route
+import { getCollection, render } from 'astro:content';
+import ContentLayout from '../../../layouts/ContentLayout.astro';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides', ({ data }) => data.lang === 'es');
+  return guides.map(entry => ({
+    params: { slug: entry.id.replace(/^es\//, '') },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+
+const allGuides = await getCollection('guides', ({ data }) => data.lang === 'es');
+const sortedGuides = allGuides.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
+const sidebarSections = [
+  {
+    title: 'Guías',
+    links: sortedGuides.map(guide => ({
+      label: guide.data.title,
+      href: `/es/guides/${guide.id.replace(/^es\//, '')}`,
+      active: guide.id === entry.id,
+    })),
+  },
+];
+---
+
+<ContentLayout
+  title={`${entry.data.title} — MIND`}
+  description={entry.data.description}
+  headings={headings}
+  sidebarSections={sidebarSections}
+>
+  <Content />
+</ContentLayout>

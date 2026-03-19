@@ -1,0 +1,22 @@
+---
+// Spanish Landing Page
+import LandingLayout from '../../layouts/LandingLayout.astro';
+import Hero from '../../components/landing/Hero.astro';
+import ValueProposition from '../../components/landing/ValueProposition.astro';
+import FeaturesGrid from '../../components/landing/FeaturesGrid.astro';
+import ArchitectureDiagram from '../../components/landing/ArchitectureDiagram.astro';
+import ResearchBadge from '../../components/landing/ResearchBadge.astro';
+import CTASection from '../../components/landing/CTASection.astro';
+---
+
+<LandingLayout
+  title="MIND — Detección de Inconsistencias Multilingüe"
+  description="Pipeline de IA de grado empresarial para detectar discrepancias en bases de conocimiento multilingüe. Investigación premiada presentada en EMNLP 2025."
+>
+  <Hero />
+  <ValueProposition />
+  <FeaturesGrid />
+  <ArchitectureDiagram />
+  <ResearchBadge />
+  <CTASection />
+</LandingLayout>

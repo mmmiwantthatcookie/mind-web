@@ -1,17 +1,22 @@
 ---
-
+// Landing Page — MIND Marketing Website
+import LandingLayout from '../layouts/LandingLayout.astro';
+import Hero from '../components/landing/Hero.astro';
+import ValueProposition from '../components/landing/ValueProposition.astro';
+import FeaturesGrid from '../components/landing/FeaturesGrid.astro';
+import ArchitectureDiagram from '../components/landing/ArchitectureDiagram.astro';
+import ResearchBadge from '../components/landing/ResearchBadge.astro';
+import CTASection from '../components/landing/CTASection.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<LandingLayout
+  title="MIND — Multilingual Inconsistency Detection"
+  description="Enterprise-grade AI pipeline for detecting discrepancies in multilingual knowledge bases. Award-winning research presented at EMNLP 2025."
+>
+  <Hero />
+  <ValueProposition />
+  <FeaturesGrid />
+  <ArchitectureDiagram />
+  <ResearchBadge />
+  <CTASection />
+</LandingLayout>

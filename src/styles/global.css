@@ -1,0 +1,376 @@
+@import "tailwindcss";
+
+/* ============================================
+   MIND Marketing Website — Design System
+   Tailwind CSS v4 @theme configuration
+   Source of truth: 02-ux-guide.md Section 4
+   ============================================ */
+
+@theme {
+  /* --- Fonts --- */
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  /* --- Font Sizes --- */
+  --text-display: 4.5rem;
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.02em;
+  --text-display--font-weight: 700;
+
+  --text-h1: 3rem;
+  --text-h1--line-height: 1.2;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h1--font-weight: 700;
+
+  --text-h2: 2.25rem;
+  --text-h2--line-height: 1.3;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h2--font-weight: 600;
+
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.4;
+  --text-h3--font-weight: 600;
+
+  --text-h4: 1.25rem;
+  --text-h4--line-height: 1.5;
+  --text-h4--font-weight: 600;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+  --text-body--font-weight: 400;
+
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.5;
+  --text-sm--font-weight: 400;
+
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.4;
+  --text-caption--font-weight: 400;
+
+  /* --- Spacing Tokens --- */
+  --spacing-section: 6rem;
+  --spacing-section-sm: 4rem;
+  --spacing-component: 2rem;
+  --spacing-element: 1rem;
+
+  /* --- Border Radius --- */
+  --radius-card: 0.75rem;
+  --radius-button: 0.5rem;
+  --radius-badge: 9999px;
+
+  /* --- Shadows --- */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 10px 25px rgba(0, 0, 0, 0.15), 0 4px 10px rgba(0, 0, 0, 0.08);
+  --shadow-glow-sm: 0 0 15px rgba(59, 130, 246, 0.15);
+  --shadow-glow-md: 0 0 30px rgba(59, 130, 246, 0.2);
+
+  /* --- Max Widths --- */
+  --container-content: 72rem;
+  --container-prose: 100ch;
+
+  /* --- Accent Colors (theme-independent) --- */
+  --color-electric: #3b82f6;
+  --color-electric-hover: #2563eb;
+  --color-electric-subtle: rgba(59, 130, 246, 0.1);
+  --color-amber: #f59e0b;
+  --color-amber-hover: #d97706;
+  --color-amber-subtle: rgba(245, 158, 11, 0.1);
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+  --color-gradient-start: #3b82f6;
+  --color-gradient-end: #8b5cf6;
+}
+
+/* ============================================
+   Theme-aware custom properties
+   ============================================ */
+
+:root {
+  /* Light mode (default for CSS, but JS sets .dark first) */
+  --color-page: #f5f5f5;
+  --color-surface: #fafafa;
+  --color-elevated: #eeeeef;
+  --color-border: #e0e0e3;
+  --color-text-primary: #09090b;
+  --color-text-secondary: #52525b;
+  --color-text-muted: #a1a1aa;
+  --color-link: #3b82f6;
+  --color-link-hover: #2563eb;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  --gradient-tech: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+  --gradient-surface: none;
+}
+
+.dark {
+  --color-page: #09090b;
+  --color-surface: #18181b;
+  --color-elevated: #27272a;
+  --color-border: #3f3f46;
+  --color-text-primary: #e4e4e7;
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #71717a;
+  --color-link: #60a5fa;
+  --color-link-hover: #93c5fd;
+
+  --gradient-surface: radial-gradient(ellipse at top, #18181b 0%, #09090b 70%);
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-page);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* ============================================
+   Focus Styles (Accessibility)
+   ============================================ */
+
+:focus-visible {
+  outline: 2px solid var(--color-electric);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   Scroll Animations
+   ============================================ */
+
+[data-animate] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+[data-animate].animate-in {
+  animation: fadeUp 0.5s ease-out forwards;
+}
+
+/* Stagger support */
+[data-animate][data-delay="1"] { animation-delay: 150ms; }
+[data-animate][data-delay="2"] { animation-delay: 300ms; }
+[data-animate][data-delay="3"] { animation-delay: 450ms; }
+[data-animate][data-delay="4"] { animation-delay: 600ms; }
+[data-animate][data-delay="5"] { animation-delay: 750ms; }
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-animate] {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+}
+
+/* ============================================
+   Gradient Text Utility
+   ============================================ */
+
+.text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Solid accent colour — use instead of gradient for headings */
+.accent-text {
+  color: var(--color-electric);
+}
+
+/* Secondary accent — amber, for a visual contrast highlight */
+.amber-text {
+  color: var(--color-amber);
+}
+
+/* ============================================
+   Glassmorphism Card Utility
+   ============================================ */
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+}
+
+.dark .glass-card {
+  background: rgba(24, 24, 27, 0.6);
+}
+
+/* ============================================
+   Button Styles
+   ============================================ */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background-color: var(--color-electric);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  border-radius: var(--radius-button);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-electric-hover);
+  transform: scale(1.02);
+  box-shadow: var(--shadow-glow-sm);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background-color: transparent;
+  color: var(--color-electric);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  border-radius: var(--radius-button);
+  border: 1px solid var(--color-electric);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-ghost:hover {
+  background-color: var(--color-electric-subtle);
+  transform: scale(1.02);
+}
+
+/* ============================================
+   Typography Prose (for content pages)
+   ============================================ */
+
+.prose-mind {
+  width: 100%;
+  color: var(--color-text-primary);
+  line-height: 1.7;
+}
+
+.prose-mind h1 { font-size: var(--text-h1); line-height: 1.2; letter-spacing: -0.02em; font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem; }
+.prose-mind h2 { font-size: var(--text-h2); line-height: 1.3; letter-spacing: -0.01em; font-weight: 600; margin-top: 2rem; margin-bottom: 0.75rem; }
+.prose-mind h3 { font-size: var(--text-h3); line-height: 1.4; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+.prose-mind h4 { font-size: var(--text-h4); line-height: 1.5; font-weight: 600; margin-top: 1.25rem; margin-bottom: 0.5rem; }
+
+.prose-mind p { margin-bottom: 1.25rem; }
+.prose-mind a { color: var(--color-link); text-decoration: underline; text-underline-offset: 3px; font-size: 1.05em; font-weight: 500; }
+.prose-mind a:hover { color: var(--color-link-hover); }
+
+.prose-mind code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--color-elevated);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
+
+.prose-mind pre {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+.prose-mind pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+.prose-mind ul, .prose-mind ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.prose-mind li { margin-bottom: 0.5rem; }
+
+.prose-mind blockquote {
+  border-left: 3px solid var(--color-electric);
+  padding-left: 1rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  margin-bottom: 1.25rem;
+}
+
+.prose-mind img {
+  border-radius: var(--radius-card);
+  margin: 1.5rem 0;
+}
+
+.prose-mind hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 2rem 0;
+}
+
+/* ============================================
+   Code Block Copy Button (auto-injected)
+   ============================================ */
+
+.pre-wrapper {
+  position: relative;
+}
+
+.pre-copy-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.75rem;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  background: var(--color-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  z-index: 10;
+}
+
+.pre-copy-btn:hover {
+  color: var(--color-electric);
+  border-color: var(--color-electric);
+}
+
+.pre-copy-btn.copied {
+  color: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.pre-wrapper pre {
+  padding-top: 2.5rem;
+}

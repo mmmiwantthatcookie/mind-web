@@ -1,0 +1,105 @@
+---
+// Footer.astro — Minimal 3-column footer
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer-inner">
+    <!-- Column 1: Navigation -->
+    <div class="footer-col">
+      <h4 class="footer-heading">Navigation</h4>
+      <a href="/docs/getting-started" class="footer-link">Documentation</a>
+      <a href="/guides/quick-start" class="footer-link">Guides</a>
+      <a href="/changelog" class="footer-link">Changelog</a>
+    </div>
+
+    <!-- Column 2: Project -->
+    <div class="footer-col">
+      <h4 class="footer-heading">Project</h4>
+      <a href="https://github.com/lcalvobartolome/mind" target="_blank" rel="noopener noreferrer" class="footer-link">
+        <i class="ph ph-github-logo"></i> GitHub
+      </a>
+      <a href="https://huggingface.co/collections/lCBartolome" target="_blank" rel="noopener noreferrer" class="footer-link">
+        HuggingFace Datasets
+      </a>
+      <a href="mailto:mind-project@example.com" class="footer-link">
+        <i class="ph ph-envelope"></i> Contact
+      </a>
+    </div>
+
+    <!-- Column 3: Legal -->
+    <div class="footer-col">
+      <h4 class="footer-heading">About</h4>
+      <p class="footer-text">
+        MIND is an award-winning AI pipeline for multilingual inconsistency detection, presented at EMNLP 2025.
+      </p>
+      <p class="footer-text footer-copyright">
+        &copy; {currentYear} MIND Project. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--color-border);
+    padding: var(--spacing-section-sm) 1.5rem var(--spacing-component);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    transition: border-color 0.2s ease;
+  }
+
+  .footer-inner {
+    max-width: var(--container-content);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-heading {
+    font-size: var(--text-caption);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-link {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s ease;
+  }
+
+  .footer-link:hover {
+    color: var(--color-electric);
+  }
+
+  .footer-text {
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    max-width: 28ch;
+  }
+
+  .footer-copyright {
+    margin-top: 0.5rem;
+    font-size: var(--text-caption);
+  }
+
+  @media (max-width: 768px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

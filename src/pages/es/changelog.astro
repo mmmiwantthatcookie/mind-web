@@ -1,0 +1,67 @@
+---
+// Spanish changelog page
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/global/Navbar.astro';
+import Footer from '../../components/global/Footer.astro';
+import ChangelogTimeline from '../../components/content/ChangelogTimeline.astro';
+import { getCollection, render } from 'astro:content';
+
+const changelog = await getCollection('changelog', ({ data }) => data.lang === 'es');
+const sorted = changelog.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const entries = await Promise.all(
+  sorted.map(async (entry) => {
+    const { Content } = await render(entry);
+    return {
+      title: entry.data.title,
+      date: entry.data.date,
+      type: entry.data.type,
+      version: entry.data.version,
+      content: Content,
+    };
+  })
+);
+---
+
+<BaseLayout title="Registro de Cambios — MIND" description="Sigue las últimas actualizaciones, funcionalidades, correcciones e hitos de investigación de MIND.">
+  <Navbar />
+  <main class="changelog-page">
+    <div class="changelog-inner">
+      <h1 class="changelog-heading" data-animate>
+        <span class="text-gradient">Registro de Cambios</span>
+      </h1>
+      <p class="changelog-subtitle" data-animate data-delay="1">
+        Sigue la evolución de MIND — nuevas funcionalidades, correcciones, datasets e hitos de investigación.
+      </p>
+
+      <ChangelogTimeline entries={entries} />
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .changelog-page {
+    min-height: calc(100vh - 64px);
+  }
+
+  .changelog-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--spacing-section-sm) 1.5rem var(--spacing-section);
+  }
+
+  .changelog-heading {
+    font-size: var(--text-h1);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .changelog-subtitle {
+    font-size: var(--text-body);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-component);
+    max-width: 50ch;
+  }
+</style>

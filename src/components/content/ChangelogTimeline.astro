@@ -1,0 +1,151 @@
+---
+// ChangelogTimeline.astro — Vertical timeline with type badges
+
+export interface ChangelogEntry {
+  title: string;
+  date: Date;
+  type: 'feature' | 'fix' | 'dataset' | 'research';
+  version?: string;
+  content: any; // Rendered content component
+}
+
+export interface Props {
+  entries: ChangelogEntry[];
+}
+
+const { entries } = Astro.props;
+
+const typeConfig = {
+  feature: { label: 'Feature', class: 'badge-feature' },
+  fix: { label: 'Fix', class: 'badge-fix' },
+  dataset: { label: 'Dataset', class: 'badge-dataset' },
+  research: { label: 'Research', class: 'badge-research' },
+};
+---
+
+<div class="timeline">
+  {entries.map((entry) => {
+    const badge = typeConfig[entry.type] || typeConfig.feature;
+    return (
+      <div class="timeline-entry" data-animate>
+        <div class="timeline-marker"></div>
+        <div class="timeline-card glass-card">
+          <div class="timeline-header">
+            <time class="timeline-date" datetime={entry.date.toISOString()}>
+              {entry.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </time>
+            <span class:list={['timeline-badge', badge.class]}>
+              {badge.label}
+            </span>
+            {entry.version && (
+              <span class="timeline-version">v{entry.version}</span>
+            )}
+          </div>
+          <div class="timeline-content prose-mind">
+            <entry.content />
+          </div>
+        </div>
+      </div>
+    );
+  })}
+</div>
+
+<style>
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--color-border);
+  }
+
+  .timeline-entry {
+    position: relative;
+    padding-bottom: 2rem;
+  }
+
+  .timeline-marker {
+    position: absolute;
+    left: -2rem;
+    top: 0.5rem;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--color-surface);
+    border: 2px solid var(--color-electric);
+    z-index: 1;
+  }
+
+  .timeline-card {
+    padding: 1.5rem;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .timeline-card:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .timeline-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .timeline-date {
+    font-size: var(--text-caption);
+    color: var(--color-text-muted);
+  }
+
+  .timeline-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15rem 0.6rem;
+    font-size: var(--text-caption);
+    font-weight: 600;
+    border-radius: var(--radius-badge);
+  }
+
+  .badge-feature {
+    background: var(--color-electric-subtle);
+    color: var(--color-electric);
+  }
+
+  .badge-fix {
+    background: var(--color-amber-subtle);
+    color: var(--color-amber);
+  }
+
+  .badge-dataset {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--color-success);
+  }
+
+  .badge-research {
+    background: var(--color-amber-subtle);
+    color: var(--color-amber);
+  }
+
+  .timeline-version {
+    font-size: var(--text-caption);
+    font-family: var(--font-mono);
+    color: var(--color-text-muted);
+  }
+
+  .timeline-content {
+    font-size: var(--text-sm);
+  }
+
+  .timeline-content :global(h2) {
+    font-size: var(--text-h4);
+    margin-top: 0;
+  }
+</style>

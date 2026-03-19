@@ -1,0 +1,84 @@
+---
+// 404.astro — Custom branded 404 page
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/global/Navbar.astro';
+import Footer from '../components/global/Footer.astro';
+---
+
+<BaseLayout title="Page Not Found — MIND" description="The page you're looking for doesn't exist.">
+  <Navbar />
+  <main class="error-page">
+    <div class="error-inner">
+      <h1 class="error-code text-gradient">404</h1>
+      <h2 class="error-title">Page not found</h2>
+      <p class="error-message">
+        We couldn't find the page you're looking for. It may have been moved or doesn't exist yet.
+      </p>
+      <div class="error-actions">
+        <a href="/" class="btn-primary">
+          <i class="ph ph-house"></i>
+          Back to Home
+        </a>
+        <a href="/docs/getting-started" class="btn-ghost">
+          <i class="ph ph-book-open"></i>
+          Documentation
+        </a>
+        <a href="/guides/quick-start" class="btn-ghost">
+          <i class="ph ph-compass"></i>
+          Guides
+        </a>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .error-page {
+    min-height: calc(100vh - 64px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+
+  .error-inner {
+    max-width: 500px;
+  }
+
+  .error-code {
+    font-size: 8rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin-bottom: 0.5rem;
+  }
+
+  .error-title {
+    font-size: var(--text-h2);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 1rem;
+  }
+
+  .error-message {
+    font-size: var(--text-body);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .error-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 480px) {
+    .error-code {
+      font-size: 5rem;
+    }
+  }
+</style>

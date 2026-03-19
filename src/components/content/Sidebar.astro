@@ -1,0 +1,104 @@
+---
+// Sidebar.astro — Left sidebar navigation for docs/guides pages
+
+export interface Props {
+  sections: {
+    title: string;
+    links: { label: string; href: string; active?: boolean }[];
+  }[];
+}
+
+const { sections } = Astro.props;
+---
+
+<aside class="sidebar" aria-label="Page navigation">
+  <nav class="sidebar-nav">
+    {sections.map(section => (
+      <div class="sidebar-section">
+        <h3 class="sidebar-section-title">{section.title}</h3>
+        <ul class="sidebar-links">
+          {section.links.map(link => (
+            <li>
+              <a
+                href={link.href}
+                class:list={['sidebar-link', { active: link.active }]}
+                aria-current={link.active ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </nav>
+</aside>
+
+<style>
+  .sidebar {
+    /* fills its grid column in ContentLayout */
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+    max-height: calc(100vh - 96px);
+    overflow-y: auto;
+    padding-right: 2rem;
+    border-right: 1px solid var(--color-border);
+  }
+
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .sidebar-section-title {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.75rem;
+    padding-left: 0.75rem;
+  }
+
+  .sidebar-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .sidebar-link {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    font-size: var(--text-body);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    border-radius: 0 var(--radius-button) var(--radius-button) 0;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    line-height: 1.4;
+  }
+
+  .sidebar-link:hover {
+    color: var(--color-electric);
+    background: var(--color-electric-subtle);
+  }
+
+  .sidebar-link.active {
+    color: var(--color-electric);
+    border-left-color: var(--color-electric);
+    font-weight: 600;
+    background: var(--color-electric-subtle);
+  }
+
+  @media (max-width: 1024px) {
+    .sidebar {
+      display: none;
+    }
+  }
+</style>

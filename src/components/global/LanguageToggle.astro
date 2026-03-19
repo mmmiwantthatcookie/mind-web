@@ -1,0 +1,68 @@
+---
+// LanguageToggle.astro — EN/ES language switcher
+// Navigates to the locale-prefixed equivalent page
+
+const currentPath = Astro.url.pathname;
+const currentLocale = currentPath.startsWith('/es') ? 'es' : 'en';
+
+// Build the equivalent path in the other locale
+function getAlternatePath(path: string, fromLocale: string): string {
+  if (fromLocale === 'en') {
+    // EN → ES: prepend /es/
+    return `/es${path === '/' ? '' : path}`;
+  } else {
+    // ES → EN: strip /es prefix
+    return path.replace(/^\/es/, '') || '/';
+  }
+}
+
+const alternatePath = getAlternatePath(currentPath, currentLocale);
+const alternateLocale = currentLocale === 'en' ? 'es' : 'en';
+---
+
+<a
+  href={alternatePath}
+  class="lang-toggle"
+  aria-label={`Switch to ${alternateLocale === 'es' ? 'Spanish' : 'English'}`}
+  title={`Switch to ${alternateLocale === 'es' ? 'Español' : 'English'}`}
+>
+  <span class:list={['lang-option', { active: currentLocale === 'en' }]}>EN</span>
+  <span class="lang-divider">/</span>
+  <span class:list={['lang-option', { active: currentLocale === 'es' }]}>ES</span>
+</a>
+
+<style>
+  .lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.35rem 0.6rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-button);
+    text-decoration: none;
+    font-size: var(--text-caption);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    transition: border-color 0.2s ease;
+    cursor: pointer;
+  }
+
+  .lang-toggle:hover {
+    border-color: var(--color-electric);
+  }
+
+  .lang-option {
+    color: var(--color-text-muted);
+    transition: color 0.2s ease;
+  }
+
+  .lang-option.active {
+    color: var(--color-text-primary);
+    font-weight: 600;
+  }
+
+  .lang-divider {
+    color: var(--color-text-muted);
+    font-weight: 300;
+  }
+</style>

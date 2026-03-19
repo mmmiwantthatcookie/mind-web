@@ -1,0 +1,40 @@
+---
+// Dynamic route for guides pages
+import { getCollection, render } from 'astro:content';
+import ContentLayout from '../../layouts/ContentLayout.astro';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides', ({ data }) => data.lang === 'en');
+  return guides.map(entry => ({
+    params: { slug: entry.id.replace(/^en\//, '') },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+
+// Build sidebar from all guides
+const allGuides = await getCollection('guides', ({ data }) => data.lang === 'en');
+const sortedGuides = allGuides.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
+const sidebarSections = [
+  {
+    title: 'Guides',
+    links: sortedGuides.map(guide => ({
+      label: guide.data.title,
+      href: `/guides/${guide.id.replace(/^en\//, '')}`,
+      active: guide.id === entry.id,
+    })),
+  },
+];
+---
+
+<ContentLayout
+  title={`${entry.data.title} — MIND`}
+  description={entry.data.description}
+  headings={headings}
+  sidebarSections={sidebarSections}
+>
+  <Content />
+</ContentLayout>

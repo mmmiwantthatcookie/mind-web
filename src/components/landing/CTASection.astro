@@ -1,0 +1,88 @@
+---
+// CTASection.astro — Bottom-page call-to-action with gradient headline
+---
+
+<section class="cta-section" id="cta">
+  <div class="cta-inner" data-animate>
+    <h2 class="cta-heading">
+      Ready to verify your<br />
+      <span class="accent-text">knowledge base</span>?
+    </h2>
+    <p class="cta-subtitle">
+      Detect inconsistencies automatically. Resolve them confidently. Ship reliable knowledge.
+    </p>
+    <div class="cta-actions">
+      <a href="mailto:mind-project@example.com" class="btn-primary cta-btn">
+        Request a Demo
+      </a>
+      <a href="https://github.com/lcalvobartolome/mind" target="_blank" rel="noopener noreferrer" class="btn-ghost">
+        <i class="ph ph-github-logo"></i>
+        View on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    padding: var(--spacing-section) 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 0%, var(--color-surface) 50%, transparent 100%);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  :global(.dark) .cta-section::before {
+    background: linear-gradient(180deg, transparent 0%, rgba(24, 24, 27, 0.4) 50%, transparent 100%);
+  }
+
+  .cta-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .cta-heading {
+    font-size: var(--text-h1);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 1rem;
+  }
+
+  .cta-subtitle {
+    font-size: var(--text-body);
+    color: var(--color-text-secondary);
+    max-width: 45ch;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+
+  .cta-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .cta-btn {
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .cta-heading {
+      font-size: var(--text-h2);
+    }
+  }
+</style>

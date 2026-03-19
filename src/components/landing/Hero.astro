@@ -1,0 +1,200 @@
+---
+// Hero.astro — Landing page hero with gradient headline, CTAs, and visual container
+---
+
+<section class="hero">
+  <div class="hero-inner">
+    <!-- Text Column -->
+    <div class="hero-text">
+      <h1 class="hero-headline">
+      Detect <span class="amber-text">Inconsistencies</span> in Your Knowledge Base
+      </h1>
+      <p class="hero-subtitle">
+        Enterprise knowledge bases accumulate contradictions as they grow. MIND automates discrepancy detection across languages and document types using state-of-the-art AI.
+      </p>
+      <div class="hero-ctas">
+        <a href="mailto:mind-project@example.com" class="btn-primary hero-cta-primary">
+          Request Demo
+        </a>
+        <a href="https://github.com/lcalvobartolome/mind" target="_blank" rel="noopener noreferrer" class="btn-ghost">
+          <i class="ph ph-github-logo"></i>
+          View on GitHub
+        </a>
+        <a href="/docs/getting-started" class="btn-ghost">
+          Read the Docs
+        </a>
+      </div>
+    </div>
+
+    <!-- Visual Column -->
+    <div class="hero-visual" data-animate>
+      <div class="hero-visual-container">
+        <!-- Placeholder for product screenshot / video / animated diagram -->
+        <div class="hero-visual-placeholder">
+          <i class="ph ph-monitor" style="font-size: 3rem; color: var(--color-electric);"></i>
+          <p>Product visual</p>
+          <span>Screenshot, video, or diagram will be placed here</span>
+        </div>
+      </div>
+      <!-- Decorative glow -->
+      <div class="hero-glow"></div>
+    </div>
+  </div>
+
+  <!-- Decorative gradient orb -->
+  <div class="hero-orb"></div>
+</section>
+
+<style>
+  .hero {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--gradient-surface);
+    padding: 2rem 1.5rem;
+  }
+
+  .hero-inner {
+    max-width: var(--container-content);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    width: 100%;
+  }
+
+  .hero-headline {
+    font-size: var(--text-display);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: var(--text-h3);
+    line-height: 1.4;
+    color: var(--color-text-secondary);
+    max-width: 50ch;
+    margin-bottom: 2rem;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-cta-primary {
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+  }
+
+  /* Visual column */
+  .hero-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-visual-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .hero-visual-container:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .hero-visual-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 0.75rem;
+    color: var(--color-text-muted);
+  }
+
+  .hero-visual-placeholder p {
+    font-weight: 600;
+    font-size: var(--text-body);
+  }
+
+  .hero-visual-placeholder span {
+    font-size: var(--text-caption);
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    top: -10%;
+    left: -10%;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  :global(.dark) .hero-glow {
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 70%);
+  }
+
+  /* Decorative orb */
+  .hero-orb {
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .hero-headline {
+      font-size: 3.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      text-align: center;
+    }
+
+    .hero-headline {
+      font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+      max-width: none;
+    }
+
+    .hero-ctas {
+      justify-content: center;
+    }
+
+    .hero-visual-container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  }
+</style>

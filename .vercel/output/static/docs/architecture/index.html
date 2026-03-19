@@ -1,0 +1,177 @@
+<!DOCTYPE html><html lang="en" class="dark"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro v6.0.6"><!-- SEO --><title>Architecture — MIND</title><meta name="description" content="How MIND's four-service stack and modular pipeline fit together."><meta name="robots" content="index, follow"><!-- Open Graph --><meta property="og:title" content="Architecture — MIND"><meta property="og:description" content="How MIND's four-service stack and modular pipeline fit together."><meta property="og:type" content="website"><!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><!-- Phosphor Icons --><link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"><!-- Theme init: prevent flash by reading localStorage before paint --><script>
+      (function() {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (stored === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else if (stored === 'dark' || prefersDark) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/Footer.ed8Y6M0g.css">
+<style>.sidebar[data-astro-cid-ciwjiil5]{position:sticky;top:80px;height:fit-content;max-height:calc(100vh - 96px);overflow-y:auto;padding-right:2rem;border-right:1px solid var(--color-border)}.sidebar-nav[data-astro-cid-ciwjiil5]{display:flex;flex-direction:column;gap:2rem;padding-bottom:2rem}.sidebar-section-title[data-astro-cid-ciwjiil5]{font-size:var(--text-sm);font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:.75rem;padding-left:.75rem}.sidebar-links[data-astro-cid-ciwjiil5]{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:3px}.sidebar-link[data-astro-cid-ciwjiil5]{display:block;padding:.5rem .75rem;font-size:var(--text-body);color:var(--color-text-secondary);text-decoration:none;border-left:2px solid transparent;border-radius:0 var(--radius-button) var(--radius-button) 0;transition:color .2s ease,border-color .2s ease,background-color .2s ease;line-height:1.4}.sidebar-link[data-astro-cid-ciwjiil5]:hover{color:var(--color-electric);background:var(--color-electric-subtle)}.sidebar-link[data-astro-cid-ciwjiil5].active{color:var(--color-electric);border-left-color:var(--color-electric);font-weight:600;background:var(--color-electric-subtle)}@media(max-width:1024px){.sidebar[data-astro-cid-ciwjiil5]{display:none}}.toc[data-astro-cid-i775gsh6]{position:sticky;top:80px;height:fit-content;max-height:calc(100vh - 96px);overflow-y:auto;padding-left:2rem;border-left:1px solid var(--color-border)}.toc-title[data-astro-cid-i775gsh6]{font-size:var(--text-sm);font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:1rem}.toc-list[data-astro-cid-i775gsh6]{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.35rem}.toc-item[data-astro-cid-i775gsh6]{padding-left:0}.toc-item-nested[data-astro-cid-i775gsh6]{padding-left:1rem}.toc-link[data-astro-cid-i775gsh6]{display:block;font-size:var(--text-sm);color:var(--color-text-secondary);text-decoration:none;padding:.25rem 0;transition:color .2s ease;line-height:1.5}.toc-link[data-astro-cid-i775gsh6]:hover{color:var(--color-electric)}@media(max-width:1280px){.toc[data-astro-cid-i775gsh6]{display:none}}.content-page[data-astro-cid-scuu7fyy]{width:100%;box-sizing:border-box;margin:0 auto;display:grid;grid-template-columns:minmax(200px,240px) 1fr;gap:0;padding:2.5rem 3rem var(--spacing-section);min-height:calc(100vh - 64px);align-items:start}.content-page[data-astro-cid-scuu7fyy].has-toc{grid-template-columns:minmax(200px,240px) 1fr minmax(180px,220px)}.content-main[data-astro-cid-scuu7fyy]{padding:0 2.5rem;min-width:0}@media(max-width:1280px){.content-page[data-astro-cid-scuu7fyy].has-toc{grid-template-columns:minmax(200px,240px) 1fr}}@media(max-width:1024px){.content-page[data-astro-cid-scuu7fyy],.content-page[data-astro-cid-scuu7fyy].has-toc{grid-template-columns:1fr}.content-main[data-astro-cid-scuu7fyy]{padding:0}}
+</style></head> <body>  <nav class="navbar" aria-label="Main navigation" data-astro-cid-72p4zy4d> <div class="navbar-inner" data-astro-cid-72p4zy4d> <!-- Logotype --> <a href="/" class="navbar-logo" aria-label="MIND Home" data-astro-cid-72p4zy4d>
+MIND
+</a> <!-- Desktop nav links --> <div class="navbar-links" id="navbar-links" data-astro-cid-72p4zy4d> <a href="/docs/getting-started" class="navbar-link" data-astro-cid-72p4zy4d>Docs</a><a href="/guides/quick-start" class="navbar-link" data-astro-cid-72p4zy4d>Guides</a><a href="/changelog" class="navbar-link" data-astro-cid-72p4zy4d>Changelog</a> </div> <!-- Right-side actions --> <div class="navbar-actions" data-astro-cid-72p4zy4d> <a href="/es/docs/architecture/" class="lang-toggle" aria-label="Switch to Spanish" title="Switch to Español" data-astro-cid-if7ttun3> <span class="lang-option active" data-astro-cid-if7ttun3>EN</span> <span class="lang-divider" data-astro-cid-if7ttun3>/</span> <span class="lang-option" data-astro-cid-if7ttun3>ES</span> </a> <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle theme" data-astro-cid-xunqggi2> <i class="ph ph-moon" id="theme-icon-dark" data-astro-cid-xunqggi2></i> <i class="ph ph-sun" id="theme-icon-light" data-astro-cid-xunqggi2></i> </button>  <script type="module">const s=document.getElementById("theme-toggle");s?.addEventListener("click",()=>{const t=document.documentElement,e=t.classList.contains("dark");t.classList.toggle("dark",!e),localStorage.setItem("theme",e?"light":"dark")});</script> <a href="mailto:mind-project@example.com" class="btn-primary navbar-cta" data-astro-cid-72p4zy4d>
+Request Demo
+</a> <!-- Mobile hamburger --> <button class="navbar-hamburger" id="navbar-hamburger" aria-label="Open menu" aria-expanded="false" data-astro-cid-72p4zy4d> <i class="ph ph-list" data-astro-cid-72p4zy4d></i> </button> </div> </div> <!-- Mobile drawer --> <div class="navbar-mobile" id="navbar-mobile" data-astro-cid-72p4zy4d> <a href="/docs/getting-started" class="navbar-mobile-link" data-astro-cid-72p4zy4d>Docs</a><a href="/guides/quick-start" class="navbar-mobile-link" data-astro-cid-72p4zy4d>Guides</a><a href="/changelog" class="navbar-mobile-link" data-astro-cid-72p4zy4d>Changelog</a> <a href="mailto:mind-project@example.com" class="btn-primary" style="margin-top: 1rem; justify-content: center;" data-astro-cid-72p4zy4d>
+Request Demo
+</a> </div> </nav>  <script type="module">const t=document.getElementById("navbar-hamburger"),s=document.getElementById("navbar-mobile");t?.addEventListener("click",()=>{const e=s?.classList.contains("open");s?.classList.toggle("open",!e),t.setAttribute("aria-expanded",String(!e));const n=t.querySelector("i");n&&(n.className=e?"ph ph-list":"ph ph-x")});</script> <div class="content-page has-toc" data-astro-cid-scuu7fyy> <aside class="sidebar" aria-label="Page navigation" data-astro-cid-ciwjiil5> <nav class="sidebar-nav" data-astro-cid-ciwjiil5> <div class="sidebar-section" data-astro-cid-ciwjiil5> <h3 class="sidebar-section-title" data-astro-cid-ciwjiil5>Documentation</h3> <ul class="sidebar-links" data-astro-cid-ciwjiil5> <li data-astro-cid-ciwjiil5> <a href="/docs/getting-started" class="sidebar-link" data-astro-cid-ciwjiil5> Getting Started </a> </li><li data-astro-cid-ciwjiil5> <a href="/docs/architecture" class="sidebar-link active" aria-current="page" data-astro-cid-ciwjiil5> Architecture </a> </li> </ul> </div> </nav> </aside> <main class="content-main" data-astro-cid-scuu7fyy> <article class="prose-mind" data-astro-cid-scuu7fyy>  <h1 id="architecture">Architecture</h1>
+<p>Two layers: a <strong>web application</strong> (four Docker services) wrapping a <strong>Python library</strong> (<code>src/mind/</code>) that does the actual work.</p>
+<h2 id="service-stack">Service stack</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>┌─────────────────────────────────────────────────┐</span></span>
+<span class="line"><span>│              Frontend  :5050                    │</span></span>
+<span class="line"><span>│        Flask + Jinja2 · User Interface          │</span></span>
+<span class="line"><span>└────────────┬────────────────────┬───────────────┘</span></span>
+<span class="line"><span>             │                    │</span></span>
+<span class="line"><span>     ┌───────▼────────┐  ┌───────▼────────┐</span></span>
+<span class="line"><span>     │ Backend :5001   │  │  Auth  :5002   │</span></span>
+<span class="line"><span>     │ Pipeline Engine │  │  Sessions &#x26;    │</span></span>
+<span class="line"><span>     │ ML workloads    │  │  user accounts │</span></span>
+<span class="line"><span>     └───────┬─────────┘  └───────┬────────┘</span></span>
+<span class="line"><span>             │                    │</span></span>
+<span class="line"><span>     ┌───────▼────────────────────▼────────┐</span></span>
+<span class="line"><span>     │         PostgreSQL  :5432           │</span></span>
+<span class="line"><span>     └─────────────────────────────────────┘</span></span></code></pre>
+<p>The services share an internal Docker network. Auth is deliberately separate — swap it out without touching the pipeline. PostgreSQL stores datasets, topic models, and detection results persistently.</p>
+<h2 id="pipeline-internals">Pipeline internals</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Raw data → Segmenter → Translator → Data Preparer → Topic Model</span></span>
+<span class="line"><span>                                                         │</span></span>
+<span class="line"><span>                                      ┌──────────────────┤</span></span>
+<span class="line"><span>                                      │                  │</span></span>
+<span class="line"><span>                                Question          Discrepancy</span></span>
+<span class="line"><span>                                Generation        Detection</span></span>
+<span class="line"><span>                                      │                  │</span></span>
+<span class="line"><span>                                Hybrid Retrieval   NLI + LLM</span></span>
+<span class="line"><span>                                (FAISS + Topics)   Verification</span></span></code></pre>
+<h3 id="segmenter">Segmenter</h3>
+<p>Splits raw files into overlapping passages — typically 3–5 sentences each. Accepts CSV, Parquet, Markdown, YAML, XML, plain text, and archives. Outputs a Parquet file with one row per passage. For multilingual corpora, segment each language separately.</p>
+<h3 id="translator">Translator</h3>
+<p>Optional. Takes segmented passages and translates between two languages using a configured backend. If your data is already in parallel form, skip this entirely.</p>
+<h3 id="data-preparer">Data Preparer</h3>
+<p>Pairs source and target passages and maps your column names to MIND’s expected schema. The schema file is a small JSON in <code>config/</code> — one field per column. This step produces the training data for the topic model.</p>
+<h3 id="polylingual-topic-model">Polylingual Topic Model</h3>
+<p>Clusters passages by theme across languages using multilingual embeddings (default: <code>BAAI/bge-m3</code>) and FAISS. You set the number of topics. Output is a topic distribution (<code>thetas</code>) for each passage — a vector of weights summing to 1. The model doesn’t need aligned sentence pairs; it works at the corpus level.</p>
+<h3 id="detection">Detection</h3>
+<p>For each topic you select:</p>
+<ol>
+<li>An LLM generates questions whose answers should be consistent across all passages in that topic</li>
+<li>FAISS + topic weights retrieve the most relevant passages for each question (hybrid retrieval)</li>
+<li>An NLI model gives a fast initial verdict; the LLM verifies and explains</li>
+</ol>
+<p>The result is a table of flagged passage pairs, each with the original text, the triggering question, the verdict, and the NLI confidence score.</p>
+<h2 id="llm-backends">LLM backends</h2>
+<p>One line in <code>config/config.yaml</code> sets the active backend. No code changes.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Backend</th><th>Notes</th></tr></thead><tbody><tr><td><strong>Gemini</strong></td><td><code>gemini-2.5-flash</code>, <code>gemini-2.0-flash</code> — fastest in our tests</td></tr><tr><td><strong>OpenAI</strong></td><td><code>gpt-4o</code>, <code>gpt-4</code>, <code>gpt-3.5-turbo</code></td></tr><tr><td><strong>Ollama</strong></td><td>Local — <code>qwen2.5:32b</code>, <code>llama3.3:70b</code> work well</td></tr><tr><td><strong>vLLM</strong></td><td>Any HuggingFace model via OpenAI-compatible API</td></tr><tr><td><strong>llama.cpp</strong></td><td>GGUF models, local server</td></tr></tbody></table>
+<p>Ollama is the practical default if you’d rather not send data to an external API.</p>
+<h2 id="configuration">Configuration</h2>
+<p><code>config/config.yaml</code> controls everything. The file is volume-mounted in Docker — edit it and restart the backend container, no rebuild needed.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Section</th><th>Controls</th></tr></thead><tbody><tr><td><code>logger</code></td><td>Log directory, verbosity, rotation</td></tr><tr><td><code>optimization</code></td><td><code>balanced</code>, <code>memory_optimized</code>, <code>speed_optimized</code></td></tr><tr><td><code>mind</code></td><td>Top-k retrieval, batch size, embedding/NLI models, prompt paths</td></tr><tr><td><code>llm</code></td><td>Active backend, model name, temperature, per-backend lists</td></tr></tbody></table>  </article> </main> <nav class="toc" aria-label="Table of contents" data-astro-cid-i775gsh6><h4 class="toc-title" data-astro-cid-i775gsh6>On this page</h4><ul class="toc-list" data-astro-cid-i775gsh6><li class="toc-item" data-astro-cid-i775gsh6><a href="#service-stack" class="toc-link" data-astro-cid-i775gsh6>Service stack</a></li><li class="toc-item" data-astro-cid-i775gsh6><a href="#pipeline-internals" class="toc-link" data-astro-cid-i775gsh6>Pipeline internals</a></li><li class="toc-item toc-item-nested" data-astro-cid-i775gsh6><a href="#segmenter" class="toc-link" data-astro-cid-i775gsh6>Segmenter</a></li><li class="toc-item toc-item-nested" data-astro-cid-i775gsh6><a href="#translator" class="toc-link" data-astro-cid-i775gsh6>Translator</a></li><li class="toc-item toc-item-nested" data-astro-cid-i775gsh6><a href="#data-preparer" class="toc-link" data-astro-cid-i775gsh6>Data Preparer</a></li><li class="toc-item toc-item-nested" data-astro-cid-i775gsh6><a href="#polylingual-topic-model" class="toc-link" data-astro-cid-i775gsh6>Polylingual Topic Model</a></li><li class="toc-item toc-item-nested" data-astro-cid-i775gsh6><a href="#detection" class="toc-link" data-astro-cid-i775gsh6>Detection</a></li><li class="toc-item" data-astro-cid-i775gsh6><a href="#llm-backends" class="toc-link" data-astro-cid-i775gsh6>LLM backends</a></li><li class="toc-item" data-astro-cid-i775gsh6><a href="#configuration" class="toc-link" data-astro-cid-i775gsh6>Configuration</a></li></ul></nav> </div> <footer class="footer" data-astro-cid-tgc5tww7> <div class="footer-inner" data-astro-cid-tgc5tww7> <!-- Column 1: Navigation --> <div class="footer-col" data-astro-cid-tgc5tww7> <h4 class="footer-heading" data-astro-cid-tgc5tww7>Navigation</h4> <a href="/docs/getting-started" class="footer-link" data-astro-cid-tgc5tww7>Documentation</a> <a href="/guides/quick-start" class="footer-link" data-astro-cid-tgc5tww7>Guides</a> <a href="/changelog" class="footer-link" data-astro-cid-tgc5tww7>Changelog</a> </div> <!-- Column 2: Project --> <div class="footer-col" data-astro-cid-tgc5tww7> <h4 class="footer-heading" data-astro-cid-tgc5tww7>Project</h4> <a href="https://github.com/lcalvobartolome/mind" target="_blank" rel="noopener noreferrer" class="footer-link" data-astro-cid-tgc5tww7> <i class="ph ph-github-logo" data-astro-cid-tgc5tww7></i> GitHub
+</a> <a href="https://huggingface.co/collections/lCBartolome" target="_blank" rel="noopener noreferrer" class="footer-link" data-astro-cid-tgc5tww7>
+HuggingFace Datasets
+</a> <a href="mailto:mind-project@example.com" class="footer-link" data-astro-cid-tgc5tww7> <i class="ph ph-envelope" data-astro-cid-tgc5tww7></i> Contact
+</a> </div> <!-- Column 3: Legal --> <div class="footer-col" data-astro-cid-tgc5tww7> <h4 class="footer-heading" data-astro-cid-tgc5tww7>About</h4> <p class="footer-text" data-astro-cid-tgc5tww7>
+MIND is an award-winning AI pipeline for multilingual inconsistency detection, presented at EMNLP 2025.
+</p> <p class="footer-text footer-copyright" data-astro-cid-tgc5tww7>
+&copy; 2026 MIND Project. All rights reserved.
+</p> </div> </div> </footer>  <!-- Scripts: scroll animations + copy buttons on all <pre> blocks --> <script>
+      document.addEventListener('DOMContentLoaded', function () {
+
+        // ── Scroll animation observer ──────────────────────────────────
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('animate-in');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('[data-animate]').forEach(function (el) {
+          observer.observe(el);
+        });
+
+        // ── Auto copy button on every <pre> ───────────────────────────
+        document.querySelectorAll('pre').forEach(function (pre) {
+          if (pre.parentElement && pre.parentElement.classList.contains('pre-wrapper')) return;
+
+          var wrapper = document.createElement('div');
+          wrapper.className = 'pre-wrapper';
+          pre.parentNode.insertBefore(wrapper, pre);
+          wrapper.appendChild(pre);
+
+          var btn = document.createElement('button');
+          btn.className = 'pre-copy-btn';
+          btn.setAttribute('aria-label', 'Copy code');
+          btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/></svg><span>Copy</span>';
+
+          btn.addEventListener('click', function () {
+            var code = pre.querySelector('code') || pre;
+            navigator.clipboard.writeText(code.textContent || '').then(function () {
+              btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg><span>Copied!</span>';
+              btn.classList.add('copied');
+              setTimeout(function () {
+                btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/></svg><span>Copy</span>';
+                btn.classList.remove('copied');
+              }, 2000);
+            });
+          });
+
+          wrapper.appendChild(btn);
+        });
+
+      });
+    </script> </body> </html>

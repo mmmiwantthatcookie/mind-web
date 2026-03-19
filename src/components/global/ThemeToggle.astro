@@ -1,0 +1,68 @@
+---
+// ThemeToggle.astro — Sun/Moon icon toggle for dark/light mode
+---
+
+<button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+  <i class="ph ph-moon" id="theme-icon-dark"></i>
+  <i class="ph ph-sun" id="theme-icon-light"></i>
+</button>
+
+<style>
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-button);
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    transition: color 0.2s ease, border-color 0.2s ease, transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .theme-toggle:hover {
+    color: var(--color-electric);
+    border-color: var(--color-electric);
+  }
+
+  .theme-toggle i {
+    font-size: 1.25rem;
+    position: absolute;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  /* Dark mode: show sun, hide moon */
+  :global(.dark) #theme-icon-dark {
+    opacity: 0;
+    transform: rotate(180deg) scale(0);
+  }
+  :global(.dark) #theme-icon-light {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+
+  /* Light mode: show moon, hide sun */
+  #theme-icon-dark {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+  #theme-icon-light {
+    opacity: 0;
+    transform: rotate(-180deg) scale(0);
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('theme-toggle');
+
+  toggle?.addEventListener('click', () => {
+    const html = document.documentElement;
+    const isDark = html.classList.contains('dark');
+    html.classList.toggle('dark', !isDark);
+    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+  });
+</script>

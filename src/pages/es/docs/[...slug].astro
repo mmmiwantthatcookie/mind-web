@@ -1,0 +1,39 @@
+---
+// Spanish docs dynamic route
+import { getCollection, render } from 'astro:content';
+import ContentLayout from '../../../layouts/ContentLayout.astro';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs', ({ data }) => data.lang === 'es');
+  return docs.map(entry => ({
+    params: { slug: entry.id.replace(/^es\//, '') },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+
+const allDocs = await getCollection('docs', ({ data }) => data.lang === 'es');
+const sortedDocs = allDocs.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
+const sidebarSections = [
+  {
+    title: 'Documentación',
+    links: sortedDocs.map(doc => ({
+      label: doc.data.title,
+      href: `/es/docs/${doc.id.replace(/^es\//, '')}`,
+      active: doc.id === entry.id,
+    })),
+  },
+];
+---
+
+<ContentLayout
+  title={`${entry.data.title} — MIND`}
+  description={entry.data.description}
+  headings={headings}
+  sidebarSections={sidebarSections}
+>
+  <Content />
+</ContentLayout>

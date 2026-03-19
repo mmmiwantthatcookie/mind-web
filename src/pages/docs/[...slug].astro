@@ -1,0 +1,40 @@
+---
+// Dynamic route for docs pages
+import { getCollection, render } from 'astro:content';
+import ContentLayout from '../../layouts/ContentLayout.astro';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs', ({ data }) => data.lang === 'en');
+  return docs.map(entry => ({
+    params: { slug: entry.id.replace(/^en\//, '') },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+
+// Build sidebar from all docs
+const allDocs = await getCollection('docs', ({ data }) => data.lang === 'en');
+const sortedDocs = allDocs.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
+const sidebarSections = [
+  {
+    title: 'Documentation',
+    links: sortedDocs.map(doc => ({
+      label: doc.data.title,
+      href: `/docs/${doc.id.replace(/^en\//, '')}`,
+      active: doc.id === entry.id,
+    })),
+  },
+];
+---
+
+<ContentLayout
+  title={`${entry.data.title} — MIND`}
+  description={entry.data.description}
+  headings={headings}
+  sidebarSections={sidebarSections}
+>
+  <Content />
+</ContentLayout>
