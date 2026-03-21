@@ -8,7 +8,7 @@ tags: ["instalación", "configuración", "inicio-rápido"]
 ---
 
 
-# Guía de inicio rápido
+# Primeros pasos
 
 MIND es ejecutable como web o desde la línea de comandos. El camino más simple es a través de Docker, nuestro stack se compone de cuatro pods: Frontend, Backend, Auth y DB. `docker-compose.yml` orquesta su interacción.
 

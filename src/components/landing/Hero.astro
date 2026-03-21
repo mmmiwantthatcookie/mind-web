@@ -7,7 +7,7 @@
     <!-- Text Column -->
     <div class="hero-text">
       <h1 class="hero-headline">
-      Detect <span class="amber-text">Inconsistencies</span> in your knowledge base
+      Detect <span class="amber-text word-swap" id="glitch-text" data-text="Inconsistencies">Inconsistencies</span> in your knowledge base
       </h1>
       <p class="hero-subtitle">
         Enterprise knowledge bases accumulate contradictions as they grow. MIND automates discrepancy detection across languages and document types using state-of-the-art AI.
@@ -76,6 +76,51 @@
   .hero-cta-primary {
     padding: 0.875rem 2rem;
     font-size: 1rem;
+  }
+
+  /* Sophisticated Subtle Glitch Effect */
+  .word-swap {
+    display: inline-block;
+    position: relative;
+    /* Automatically hugs exactly to the width of the current word with 0 awkward gaps */
+  }
+
+  .glitch-anim {
+    animation: text-glitch 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+
+  @keyframes text-glitch {
+    0% {
+      transform: translate(0);
+      text-shadow: none;
+      opacity: 1;
+    }
+    20% {
+      transform: translate(-3px, 1px) scaleY(1.02);
+      text-shadow: 3px 0px rgba(6, 182, 212, 0.8), -3px -1px rgba(239, 68, 68, 0.8);
+      opacity: 0.8;
+      filter: contrast(1.5) brightness(1.2);
+    }
+    40% {
+      transform: translate(3px, -2px) scaleY(0.98);
+      text-shadow: -3px 0px rgba(6, 182, 212, 0.8), 3px 1px rgba(239, 68, 68, 0.8);
+      opacity: 0.9;
+    }
+    60% {
+      transform: translate(-2px, 2px);
+      text-shadow: 2px 0px rgba(6, 182, 212, 0.8), -2px -2px rgba(239, 68, 68, 0.8);
+      opacity: 0.8;
+    }
+    80% {
+      transform: translate(2px, -1px);
+      text-shadow: -2px 0px rgba(6, 182, 212, 0.8), 2px 2px rgba(239, 68, 68, 0.8);
+      opacity: 0.9;
+    }
+    100% {
+      transform: translate(0);
+      text-shadow: none;
+      opacity: 1;
+    }
   }
 
   /* Visual column */
@@ -189,3 +234,29 @@
     }
   }
 </style>
+
+<script>
+  const phrases = [
+    'Contradictions',
+    'Discrepancies',
+    'Anything'
+  ];
+
+  const el = document.getElementById('glitch-text');
+  if (el) {
+    let counter = 0;
+    setInterval(() => {
+      // Trigger the aesthetic CSS glitch
+      el.classList.remove('glitch-anim');
+      void el.offsetWidth; // force DOM reflow
+      el.classList.add('glitch-anim');
+      
+      // Swap the text accurately in the mid-point of the 0.4s CSS tear
+      setTimeout(() => {
+        el.innerText = phrases[counter];
+        el.setAttribute('data-text', phrases[counter]);
+        counter = (counter + 1) % phrases.length;
+      }, 150); 
+    }, 3200);
+  }
+</script>

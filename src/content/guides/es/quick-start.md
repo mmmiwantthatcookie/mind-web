@@ -10,9 +10,9 @@ order: 1
 
 CLI walkthrough from raw text to a list of flagged discrepancies. Assumes you've installed the package (`uv pip install -e .`) and filled in `config/config.yaml` with an LLM backend.
 
-## Prepare: segment
+## Preparación: segmentar
 
-The pipeline starts from passages, not documents. The segmenter handles the splitting:
+La pipeline trabaja con pasajes, no con documentos. El segmentador se encarga de dividirlos en trozos más manejables.
 
 ```bash
 python3 src/mind/corpus_building/segmenter.py \
@@ -22,11 +22,11 @@ python3 src/mind/corpus_building/segmenter.py \
   --id_col doc_id
 ```
 
-Run this separately for each language if you have multilingual data. The output is a Parquet file — one row per passage.
+Ejecuta este paso por separado para cada idioma si tienes data bilingüe. El output es un fichero Parquet, con una fila por pasaje.
 
-## Prepare: translate (skip if not needed)
+## Preparación: traducción (saltar si no es necesario)
 
-If you have content in two languages and want to cross-check them, translate one side:
+Si tienes contenido en dos idiomas, traduce uno de ellos para igualar la data:
 
 ```bash
 python3 src/mind/corpus_building/translator.py \
@@ -38,11 +38,10 @@ python3 src/mind/corpus_building/translator.py \
   --lang_col lang
 ```
 
-If your corpus is already bilingual, skip straight to the next step.
 
-## Prepare: pair the data
+## Prepara: emparejar los datos
 
-The data preparer takes an anchor corpus (source language) and a comparison corpus (target), matches them by topic similarity, and outputs the training format for the topic model.
+Este paso empareja tu corpus ancla y tu corpus objetivo creando una estructura simétrica. El output son esos mismos datos ahora listos para el modelado de tópicos
 
 ```bash
 python3 src/mind/corpus_building/data_preparer.py \
@@ -52,11 +51,11 @@ python3 src/mind/corpus_building/data_preparer.py \
   --schema config/schema.json
 ```
 
-The schema is a small JSON file that maps your column names to what MIND expects. Copy the example from `config/` and adjust field names.
+El schema de configuración es un fichero JSON que relaciona tus nombres de columnas con el input que MIND espera. Copia el ejemplo de `config/` y ajusta los nombres.
 
-## Train a topic model
+## Entrenar el modelo de tópicos
 
-The Polylingual Topic Model (PLTM) clusters passages by theme across both languages:
+El Modelo de Tópicos Polilingüe (PLTM) agrupa pasajes por temática en ambos idiomas:
 
 ```bash
 python3 src/mind/topic_modeling/polylingual_tm.py \
@@ -67,11 +66,11 @@ python3 src/mind/topic_modeling/polylingual_tm.py \
   --num_topics 30
 ```
 
-30 topics is a reasonable starting point for a corpus of a few thousand documents. Output includes `thetas_en.parquet` and `thetas_es.parquet` — each row is a topic distribution for one passage.
+Para miles de documentos, unos 25 tópicos es un punto de partida razonable. Los outputs de esta fase incluyen `thetas_en.parquet` y `thetas_es.parquet`, cada fila es una distribución de tópicos para un pasaje.
 
-Once trained, you can inspect the top words per topic in the `models/` directory. Discard topics that look like noise before running detection.
+Al acabar el entrenamiento, puedes inspeccionar las palabras más relevantes en la carpeta `models/`.
 
-## Run detection
+## Detectar
 
 Pass the corpus files, topic distributions, and a list of topic IDs to analyze:
 

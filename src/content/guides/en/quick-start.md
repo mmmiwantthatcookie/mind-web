@@ -38,7 +38,6 @@ python3 src/mind/corpus_building/translator.py \
   --lang_col lang
 ```
 
-If your corpus is already bilingual, skip straight to the next step.
 
 ## Prepare: pair the data
 
