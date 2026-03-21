@@ -9,20 +9,21 @@ tags: ["installation", "docker", "quickstart"]
 
 # Getting Started
 
-MIND runs as a web application or from the command line. Easiest path: Docker. The stack is four containers — frontend, backend, auth, and a Postgres instance. All wired together in `docker-compose.yml`.
+MIND runs as a web application or from the command line. Easiest path: Docker. The stack is four containers: frontend, backend, auth, and a Postgres instance. All wired together in `docker-compose.yml`.
 
 ## What you need
 
 - Docker and Compose (v2+)
 - An LLM. Gemini and OpenAI need API keys. [Ollama](https://ollama.com) is the self-hosted option — pull a model, point MIND at the local server, no key needed.
-- ~4 GB disk for the base images.
+- ~8 GB disk for the base images.
+- We recommend 6-8 GB RAM for the NLP algorithms
 
 ## Docker install
 
 Start with a submodule clone — the `externals/` directory pulls in a dependency that's tracked separately:
 
 ```bash
-git clone --recurse-submodules https://github.com/lcalvobartolome/mind.git
+git clone --recurse-submodules https://github.com/ShockCitrus/mind-industry.git
 cd mind
 ```
 
@@ -48,7 +49,7 @@ Frontend at `http://localhost:5050`. Backend API at `:5001`.
 For working on the pipeline itself, skip Docker and use [uv](https://docs.astral.sh/uv/):
 
 ```bash
-git clone --recurse-submodules https://github.com/lcalvobartolome/mind.git
+git clone --recurse-submodules https://github.com/ShockCitrus/mind-industry.git
 cd mind
 
 uv venv .venv && source .venv/bin/activate
@@ -74,5 +75,5 @@ The backend handles batching. On a mid-range GPU it takes a few minutes per topi
 
 ## Where to go next
 
-- [Architecture](/docs/architecture) — the pipeline internals before you start tweaking config
-- [Quick-start guide](/guides/quick-start) — CLI walkthrough with real commands and a sample dataset
+- [Architecture](/docs/architecture) pipeline internals before you start tweaking config
+- [Quick-start guide](/guides/quick-start) CLI walkthrough with real commands and a sample dataset

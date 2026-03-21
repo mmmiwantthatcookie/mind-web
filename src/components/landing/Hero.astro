@@ -1,5 +1,5 @@
 ---
-// Hero.astro — Landing page hero with gradient headline, CTAs, and visual container
+// Hero.astro — Landing page hero with centered headline and CTAs
 ---
 
 <section class="hero">
@@ -7,38 +7,19 @@
     <!-- Text Column -->
     <div class="hero-text">
       <h1 class="hero-headline">
-      Detect <span class="amber-text">Inconsistencies</span> in Your Knowledge Base
+      Detect <span class="amber-text">Inconsistencies</span> in your knowledge base
       </h1>
       <p class="hero-subtitle">
         Enterprise knowledge bases accumulate contradictions as they grow. MIND automates discrepancy detection across languages and document types using state-of-the-art AI.
       </p>
       <div class="hero-ctas">
-        <a href="mailto:mind-project@example.com" class="btn-primary hero-cta-primary">
-          Request Demo
-        </a>
-        <a href="https://github.com/lcalvobartolome/mind" target="_blank" rel="noopener noreferrer" class="btn-ghost">
+        <a href="https://github.com/ShockCitrus/mind-industry" target="_blank" rel="noopener noreferrer" class="btn-primary hero-cta-primary">
           <i class="ph ph-github-logo"></i>
           View on GitHub
-        </a>
-        <a href="/docs/getting-started" class="btn-ghost">
-          Read the Docs
         </a>
       </div>
     </div>
 
-    <!-- Visual Column -->
-    <div class="hero-visual" data-animate>
-      <div class="hero-visual-container">
-        <!-- Placeholder for product screenshot / video / animated diagram -->
-        <div class="hero-visual-placeholder">
-          <i class="ph ph-monitor" style="font-size: 3rem; color: var(--color-electric);"></i>
-          <p>Product visual</p>
-          <span>Screenshot, video, or diagram will be placed here</span>
-        </div>
-      </div>
-      <!-- Decorative glow -->
-      <div class="hero-glow"></div>
-    </div>
   </div>
 
   <!-- Decorative gradient orb -->
@@ -59,9 +40,11 @@
   .hero-inner {
     max-width: var(--container-content);
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    gap: 2rem;
     align-items: center;
     width: 100%;
   }
@@ -80,11 +63,12 @@
     line-height: 1.4;
     color: var(--color-text-secondary);
     max-width: 50ch;
-    margin-bottom: 2rem;
+    margin: 0 auto 2rem auto;
   }
 
   .hero-ctas {
     display: flex;
+    justify-content: center;
     gap: 1rem;
     flex-wrap: wrap;
   }
@@ -100,19 +84,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
   }
 
   .hero-visual-container {
     position: relative;
     z-index: 2;
     width: 100%;
-    aspect-ratio: 16 / 10;
+    height: auto;
+    min-height: 350px; /* Altura mínima por si el componente tarda en cargar */
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-card);
     overflow: hidden;
     box-shadow: var(--shadow-card);
     transition: box-shadow 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .hero-visual-container:hover {
@@ -124,7 +113,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    width: 100%;
+    flex-grow: 1;
+    padding: 0.25rem; /* 5. Añadido: Margen interior para que el monitor no toque los bordes */
     gap: 0.75rem;
     color: var(--color-text-muted);
   }

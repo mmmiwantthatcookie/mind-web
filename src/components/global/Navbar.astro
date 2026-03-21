@@ -28,7 +28,7 @@ const navLinks = [
     <div class="navbar-actions">
       <LanguageToggle />
       <ThemeToggle />
-      <a href="mailto:mind-project@example.com" class="btn-primary navbar-cta">
+      <a href="mailto:ariadnaspinosa@protonmail.com" class="btn-primary navbar-cta">
         Request Demo
       </a>
       <!-- Mobile hamburger -->
@@ -43,7 +43,7 @@ const navLinks = [
     {navLinks.map(link => (
       <a href={link.href} class="navbar-mobile-link">{link.label}</a>
     ))}
-    <a href="mailto:mind-project@example.com" class="btn-primary" style="margin-top: 1rem; justify-content: center;">
+    <a href="mailto:ariadnaspinosa@protonmail.com" class="btn-primary" style="margin-top: 1rem; justify-content: center;">
       Request Demo
     </a>
   </div>
@@ -66,6 +66,7 @@ const navLinks = [
   }
 
   .navbar-inner {
+    position: relative;
     max-width: var(--container-content);
     margin: 0 auto;
     display: flex;
@@ -93,6 +94,9 @@ const navLinks = [
     display: flex;
     align-items: center;
     gap: 2rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .navbar-link {
@@ -114,8 +118,13 @@ const navLinks = [
   }
 
   .navbar-cta {
-    padding: 0.5rem 1.25rem;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1.25rem;
     font-size: var(--text-sm);
+    box-sizing: border-box;
   }
 
   .navbar-hamburger {

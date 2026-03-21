@@ -263,7 +263,7 @@ BaseLayout
 |----|-------------|----------|---------------------|
 | REQ-F-001 | User scrolls through Landing Page to discover Problem vs Solution and Features | Must | Distinct sections for Hero, Value Proposition, Features Grid are visible and scrollable |
 | REQ-F-002 | User clicks "Request Demo / Contact" primary CTA | Must | Opens email client (mailto) or navigates to a contact form/section |
-| REQ-F-003 | User clicks "View on GitHub" CTA | Must | Opens `https://github.com/lcalvobartolome/mind` in a new tab |
+| REQ-F-003 | User clicks "View on GitHub" CTA | Must | Opens `https://github.com/ShockCitrus/mind-industry` in a new tab |
 | REQ-F-004 | User navigates to Secondary Pages via navigation menu | Must | Clickable links to `/docs/`, `/guides/`, `/changelog` are accessible from any page via sticky navbar |
 
 ### Secondary User Flows
@@ -471,7 +471,7 @@ npx vercel --prod
 | Integration | Detail |
 |-------------|--------|
 | **Vercel** | Free tier. SSG output. No serverless functions. `@astrojs/vercel` adapter. |
-| **GitHub** | External links to `https://github.com/lcalvobartolome/mind`. Opened in new tabs. |
+| **GitHub** | External links to `https://github.com/ShockCitrus/mind-industry`. Opened in new tabs. |
 | **HuggingFace** | External link to datasets collection. Badge/link in ResearchBadge component. |
 | **Google Fonts** | Load `Inter` (and any additional fonts specified in UX Guide) via `<link>` preconnect. |
 | **Phosphor Icons** | Self-hosted or CDN with local fallback. Same icon set as the MIND application. |

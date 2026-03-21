@@ -1,0 +1,421 @@
+---
+/**
+ conflictos aqui, meter algo chulo
+ */
+const conflicts = [
+  {
+    source: "pricing_q1 · PT / ZH",
+    valA:   "€ 12.00",
+    valB:   "€ 9.00",
+    field:  "sku_001.unit_price",
+  },
+  {
+    source: "compliance · DE / FR",
+    valA:   "48 h",
+    valB:   "72 h",
+    field:  "sla.response_time",
+  },
+];
+---
+
+<!-- ─────────────────────────────────────────────────────────────
+     Component root. Inherits .dark from <html> or <body>.
+     All colours are defined as CSS custom properties below so
+     you can override them per-theme without touching the markup.
+───────────────────────────────────────────────────────────────── -->
+<div class="mind-monitor" aria-label="MIND integrity monitor" role="img">
+
+  <!-- Moving scanline — purely decorative, hidden from a11y tree -->
+  <div class="scanline" aria-hidden="true"></div>
+
+  <!-- ── Top bar ──────────────────────────────────────────────── -->
+  <div class="top-bar">
+    <span class="brand">MIND · integrity monitor</span>
+
+    <!--
+      Counters are populated by JS after the grid is built.
+      The data-* attributes are the fallback text shown before JS runs.
+    -->
+    <div class="counters" aria-live="polite">
+      <span class="cnt-ok"   id="mm-cnt-ok">  ▪ — ok</span>
+      <span class="cnt-warn" id="mm-cnt-warn"> ▪ — warn</span>
+      <span class="cnt-err"  id="mm-cnt-err">  ▪ — conflict</span>
+    </div>
+  </div>
+
+  <!-- ── Cell grid (built by JS) ──────────────────────────────── -->
+  <div class="mm-grid" id="mm-grid" aria-hidden="true"></div>
+
+  <div class="mm-divider"></div>
+
+  <!-- ── Conflict rows ────────────────────────────────────────── -->
+  <div class="conflicts" role="list" aria-label="Detected contradictions">
+    {conflicts.map(c => (
+      <div class="conflict-row" role="listitem">
+        <span class="cr-source">{c.source}</span>
+        <div class="cr-vals" aria-label={`${c.valA} versus ${c.valB}`}>
+          <span class="cr-pill a">{c.valA}</span>
+          <span class="cr-sep" aria-hidden="true">≠</span>
+          <span class="cr-pill b">{c.valB}</span>
+        </div>
+        <span class="cr-field">{c.field}</span>
+      </div>
+    ))}
+  </div>
+
+  <!-- ── Console line ─────────────────────────────────────────── -->
+  <div class="mm-console" aria-live="polite">
+    <span class="cmd">mind scan --multilingual</span>
+    <span>
+      <span class="cerr" id="mm-con-err">— conflicts</span>
+      &nbsp;·&nbsp;
+      <span class="cout" id="mm-con-ok">— verified</span>
+      &nbsp;· blocked from LLM<span class="cursor" aria-hidden="true">_</span>
+    </span>
+  </div>
+
+</div>
+
+
+<!-- ─────────────────────────────────────────────────────────────
+     STYLES
+     All values you might want to tweak are marked with
+     "/* ← ADJUST */" comments.
+───────────────────────────────────────────────────────────────── -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap');
+
+  /* ── Animations ───────────────────────────────────────────── */
+
+  @keyframes mm-pulse-ok   { 0%,100%{opacity:.40} 50%{opacity:.75} }
+  @keyframes mm-pulse-err  { 0%,100%{opacity:1}   50%{opacity:.45} }
+  @keyframes mm-pulse-warn { 0%,100%{opacity:.80} 50%{opacity:.30} }
+  @keyframes mm-blink      { 0%,49%{opacity:1}    50%,100%{opacity:0} }
+  @keyframes mm-scan       { from{top:0} to{top:100%} }
+
+  /* Respect user motion preference */
+  @media (prefers-reduced-motion: no-preference) {
+      :global(.cell-ok)   { animation: mm-pulse-ok   var(--d,3.5s) ease-in-out infinite var(--delay,0s); }
+      :global(.cell-err)  { animation: mm-pulse-err  1.2s          ease-in-out infinite var(--delay,0s); }
+      :global(.cell-warn) { animation: mm-pulse-warn 2s            ease-in-out infinite var(--delay,0s); }
+      .scanline           { animation: mm-scan 5s linear infinite; }
+      .cursor             { animation: mm-blink .9s step-end infinite; }
+    }
+
+  /* ── Design tokens ────────────────────────────────────────── */
+
+  .mind-monitor {
+    /* Dark mode palette (default) */
+    --mm-bg:      #09090b;         /* ← ADJUST: component background */
+    --mm-bdr:     #1e1e24;         /* ← ADJUST: subtle border colour */
+    --mm-muted:   #52525b;         /* ← ADJUST: very dim elements */
+    --mm-sub:     #a1a1aa;         /* ← ADJUST: secondary text */
+
+    --mm-ok:      #1D9E75;         /* ← ADJUST: healthy cell colour */
+    --mm-warn:    #EF9F27;         /* ← ADJUST: warning cell colour */
+    --mm-err:     #E24B4A;         /* ← ADJUST: conflict cell colour */
+    --mm-blue:    #3b82f6;         /* ← ADJUST: brand accent (from your --color-electric) */
+
+    font-family: 'IBM Plex Mono', 'Courier New', monospace;
+    background:  var(--mm-bg);
+    padding:     28px 26px 22px;   /* ← ADJUST: inner padding */
+    position:    relative;
+    overflow:    hidden;
+    border-radius: 6px;            /* ← ADJUST: corner radius */
+  }
+
+  /* Light mode — overrides via .dark logic on <html> or <body>.
+     Your page sets :root for light and .dark for dark, so we
+     flip the tokens when the parent does NOT have .dark.        */
+  :root:not(.dark) .mind-monitor {
+    --mm-bg:    #f5f5f5;           /* ← ADJUST: light bg */
+    --mm-bdr:   #d0d0d8;
+    --mm-muted: #c0c0cc;
+    --mm-sub:   #71717a;
+    /* ok / warn / err are intentionally kept the same —
+       they're vivid enough on light surfaces               */
+  }
+
+  /* ── CRT scanlines overlay (pseudo-element) ──────────────── */
+  .mind-monitor::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,  transparent 3px,
+      rgba(0,0,0,.05) 3px, rgba(0,0,0,.05) 4px  /* ← ADJUST: scanline opacity */
+    );
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* ── Moving scanline ─────────────────────────────────────── */
+  .scanline {
+    position: absolute;
+    left: 0; right: 0;
+    height: 48px;                  /* ← ADJUST: scanline height */
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(59,130,246,.025),       /* ← ADJUST: scanline colour/opacity */
+      transparent
+    );
+    pointer-events: none;
+    z-index: 9;
+    display: none;
+  }
+
+  /* ── Top bar ─────────────────────────────────────────────── */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;           /* ← ADJUST: gap below top bar */
+  }
+
+  .brand {
+    font-size:      14px;          /* ← ADJUST: brand label size */
+    font-weight:    700;
+    letter-spacing: .28em;
+    color:          var(--mm-blue);
+    text-transform: uppercase;
+  }
+
+  .counters {
+    display:        flex;
+    gap:            14px;
+    font-size:      12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .cnt-ok   { color: var(--mm-ok);   }
+  .cnt-warn { color: var(--mm-warn); }
+  .cnt-err  { color: var(--mm-err);  }
+
+/* ── Cell grid ───────────────────────────────────────────── */
+  .mm-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--mm-cols, 10), 1fr);
+    gap:           4px;
+    margin-bottom: 20px;
+    position:      relative;
+    z-index:       1;
+  }
+
+  .mm-grid :global(.cell) {
+    height:         32px;
+    border-radius:  2px;
+    border:         1px solid transparent;
+    display:        flex;
+    align-items:    center;
+    justify-content: center;
+    font-size:      9px;
+    font-weight:    700;
+    letter-spacing: .10em;
+    text-transform: uppercase;
+    cursor:         default;
+    user-select:    none;
+  }
+
+  .mm-grid :global(.cell-ok) {
+    background:   rgba(15,110,86,.12);
+    border-color: rgba(15,110,86,.30);
+    color:        var(--mm-ok);
+  }
+  .mm-grid :global(.cell-warn) {
+    background:   rgba(133,79,11,.12);
+    border-color: rgba(133,79,11,.35);
+    color:        var(--mm-warn);
+  }
+  .mm-grid :global(.cell-err) {
+    background:   rgba(163,45,45,.15);
+    border-color: rgba(163,45,45,.45);
+    color:        var(--mm-err);
+  }
+  .mm-grid :global(.cell-dim) {
+    background:   transparent;
+    border-color: var(--mm-bdr);
+    color:        var(--mm-muted);
+    opacity:      .40;
+  }
+
+  /* ── Divider ─────────────────────────────────────────────── */
+  .mm-divider {
+    height:     1px;
+    background: var(--mm-bdr);
+    margin-bottom: 14px;
+    position:   relative;
+    z-index:    1;
+  }
+
+  /* ── Conflict rows ───────────────────────────────────────── */
+  .conflicts {
+    display:        flex;
+    flex-direction: column;
+    gap:            7px;           /* ← ADJUST: gap between rows */
+    margin-bottom:  18px;
+    position:       relative;
+    z-index:        1;
+  }
+
+  .conflict-row {
+    display:     flex;
+    align-items: center;
+    gap:         10px;
+    padding:     9px 12px;         /* ← ADJUST: row padding */
+    border:      1px solid rgba(163,45,45,.28);
+    border-radius: 3px;
+    background:  rgba(163,45,45,.04);
+  }
+
+  .cr-source {
+    font-size:      10px;
+    letter-spacing: .14em;
+    color:          var(--mm-sub);
+    text-transform: uppercase;
+    flex:           0 0 138px;     /* ← ADJUST: source column width */
+    white-space:    nowrap;
+    overflow:       hidden;
+    text-overflow:  ellipsis;
+  }
+
+  .cr-vals {
+    display:     flex;
+    align-items: center;
+    gap:         8px;
+    flex:        1;
+  }
+
+  .cr-pill {
+    font-size:   12px;             /* ← ADJUST: conflict value size */
+    font-weight: 700;
+    letter-spacing: .05em;
+    padding:     2px 7px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .cr-pill.a {
+    background: rgba(163,45,45,.15);
+    color:      #F09595;
+    border:     1px solid rgba(163,45,45,.30);
+  }
+  .cr-pill.b {
+    background: rgba(133,79,11,.15);
+    color:      #FAC775;
+    border:     1px solid rgba(133,79,11,.30);
+  }
+
+  .cr-sep {
+    font-size: 13px;
+    color:     var(--mm-muted);
+  }
+
+  .cr-field {
+    font-size:      10px;
+    color:          var(--mm-sub);
+    letter-spacing: .10em;
+    text-transform: uppercase;
+    margin-left:    auto;
+    white-space:    nowrap;
+  }
+
+  /* ── Console line ────────────────────────────────────────── */
+  .mm-console {
+    display:         flex;
+    justify-content: space-between;
+    align-items:     center;
+    font-size:       11px;
+    letter-spacing:  .10em;
+    color:           var(--mm-sub);
+    border-top:      1px solid var(--mm-bdr);
+    padding-top:     10px;
+    position:        relative;
+    z-index:         1;
+  }
+  .cmd  { color: var(--mm-blue); }
+  .cout { color: var(--mm-ok);   }
+  .cerr { color: var(--mm-err);  }
+</style>
+
+
+<!-- ─────────────────────────────────────────────────────────────
+     SCRIPT
+     Builds the cell grid at runtime so each load is unique.
+     All tuneable values are at the top of the script block.
+───────────────────────────────────────────────────────────────── -->
+<script>
+(function () {
+
+  /* ── Grid dimensions ──────────────────────────────────────── */
+  const COLS = 6;   /* ← ADJUST: number of columns              */
+  const ROWS = 4;    /* ← ADJUST: number of rows                 */
+
+  /* ── Cell state ratios (must sum to ≤ 1.0) ───────────────── *
+   * Increase err/warn to make the grid look more alarming.      *
+   * The remainder after err+warn+dim becomes ok cells.          */
+  const RATIO = {
+    err:  0.16,      /* ← ADJUST: fraction of conflict cells     */
+    warn: 0.08,      /* ← ADJUST: fraction of warning cells      */
+    dim:  0.2,      /* ← ADJUST: fraction of empty/dim cells    */
+    /* ok = remainder */
+  };
+
+  /* ── Labels rendered inside each cell type ───────────────── */
+  const LABELS = {
+    ok:   ['OK', 'SYNC', 'PASS', 'VALID', 'MATCH', 'CLEAN'],
+    warn: ['DRIFT', 'FUZZY', 'STALE', 'DELTA'],
+    err:  ['CONFLICT', 'DISC', 'FAIL', 'ERR'],
+    dim:  ['·', '—', '···'],
+  };
+
+  /* ─────────────────────────────────────────────────────────── */
+
+  const grid = document.getElementById('mm-grid');
+  if (!grid) return;
+
+  const total = COLS * ROWS;
+  const counts = { ok: 0, warn: 0, err: 0, dim: 0 };
+
+  /* Set the CSS variable so the grid knows how many columns */
+  grid.style.setProperty('--mm-cols', COLS);
+
+  /* Build state list */
+  const states = Array.from({ length: total }, () => {
+    const r = Math.random();
+    if (r < RATIO.err)                        return 'err';
+    if (r < RATIO.err + RATIO.warn)           return 'warn';
+    if (r < RATIO.err + RATIO.warn + RATIO.dim) return 'dim';
+    return 'ok';
+  });
+
+  /* Render cells */
+  states.forEach(s => {
+    counts[s]++;
+
+    const cell = document.createElement('div');
+    cell.className = `cell cell-${s}`;
+
+    /* Stagger animation phase so cells pulse independently */
+    cell.style.setProperty('--delay', (Math.random() * 4).toFixed(2) + 's');
+    cell.style.setProperty('--d',     (2.5 + Math.random() * 3).toFixed(2) + 's');
+
+    const pool = LABELS[s];
+    cell.textContent = pool[Math.floor(Math.random() * pool.length)];
+    grid.appendChild(cell);
+  });
+
+  /* Update counter chips */
+  const set = (id: string, val: string | null) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  };
+
+  set('mm-cnt-ok',   `▪ ${counts.ok} ok`);
+  set('mm-cnt-warn', `▪ ${counts.warn} warn`);
+  set('mm-cnt-err',  `▪ ${counts.err} conflict`);
+  set('mm-con-ok',   `${counts.ok} verified`);
+  set('mm-con-err',  `${counts.err} conflicts`);
+
+})();
+</script>

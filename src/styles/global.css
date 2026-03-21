@@ -77,8 +77,6 @@
   --color-amber-subtle: rgba(245, 158, 11, 0.1);
   --color-success: #10b981;
   --color-danger: #ef4444;
-  --color-gradient-start: #3b82f6;
-  --color-gradient-end: #8b5cf6;
 }
 
 /* ============================================
@@ -96,11 +94,6 @@
   --color-text-muted: #a1a1aa;
   --color-link: #3b82f6;
   --color-link-hover: #2563eb;
-
-  /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-  --gradient-tech: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
-  --gradient-surface: none;
 }
 
 .dark {
@@ -113,8 +106,6 @@
   --color-text-muted: #71717a;
   --color-link: #60a5fa;
   --color-link-hover: #93c5fd;
-
-  --gradient-surface: radial-gradient(ellipse at top, #18181b 0%, #09090b 70%);
 }
 
 /* ============================================
@@ -180,14 +171,11 @@ body {
 }
 
 /* ============================================
-   Gradient Text Utility
+   Solid Text Highlight (formerly Gradient)
    ============================================ */
 
 .text-gradient {
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--color-electric);
 }
 
 /* Solid accent colour — use instead of gradient for headings */
