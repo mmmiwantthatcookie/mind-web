@@ -38,7 +38,6 @@ python3 src/mind/corpus_building/translator.py \
   --lang_col lang
 ```
 
-
 ## Prepare: pair the data
 
 The data preparer takes an anchor corpus (source language) and a comparison corpus (target), matches them by topic similarity, and outputs the training format for the topic model.
@@ -85,8 +84,6 @@ python3 src/mind/pipeline/cli.py \
   --topics 0 1 4 7 \
   --path_save results/
 ```
-
-Each topic ID runs independently, so you can parallelize across them if needed. Runtime scales with corpus size and the LLM backend — Gemini Flash is fast; local Ollama on CPU is slow.
 
 ## Review results
 

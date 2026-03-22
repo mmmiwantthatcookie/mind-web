@@ -8,7 +8,7 @@ order: 1
 
 # Guía de inicio rápido
 
-CLI walkthrough from raw text to a list of flagged discrepancies. Assumes you've installed the package (`uv pip install -e .`) and filled in `config/config.yaml` with an LLM backend.
+Tutorial de la herramienta CLI desde el documento hasta la tabla de discrepancias. Asume que has instalado el paquete y rellenado el archivo de configuración `config/config.yaml` y el `.env` con una selección de LLM.
 
 ## Preparación: segmentar
 
@@ -72,7 +72,7 @@ Al acabar el entrenamiento, puedes inspeccionar las palabras más relevantes en 
 
 ## Detectar
 
-Pass the corpus files, topic distributions, and a list of topic IDs to analyze:
+Utiliza de argumentos los ficheros del corpus, las distribuciones de tópicos, y una lista de tópicos para analizar.
 
 ```bash
 python3 src/mind/pipeline/cli.py \
@@ -86,20 +86,18 @@ python3 src/mind/pipeline/cli.py \
   --path_save results/
 ```
 
-Each topic ID runs independently, so you can parallelize across them if needed. Runtime scales with corpus size and the LLM backend — Gemini Flash is fast; local Ollama on CPU is slow.
+## Revisar los resultados
 
-## Review results
+El ooutput se guarda en `results/` como un fichero Parquet. Cada fila tiene:
 
-Results land in `results/` as a Parquet file. Load in a notebook or push into the web app. Each row has:
+- pasajes fuente y objetivo
+- la pregunta que expuso la discrepancia
+- explicaciones de NLI y razonamiento del LLM
+- la clasisficación de discrepancias
 
-- the source and target passages
-- the generated question that exposed the discrepancy
-- the NLI score and the LLM's explanation
-- a verdict label
+## Pruébalo con ROSIE-MIND
 
-## Try it with ROSIE-MIND
-
-To test without your own data, the annotated benchmark dataset is on HuggingFace:
+Si no deseas probarlo con tus datos, el dataset de benchmark está en HuggingFace:
 
 ```python
 from datasets import load_dataset
@@ -108,4 +106,4 @@ ds = load_dataset("lcalvobartolome/rosie_mind", split="train")
 ds.to_parquet("data/rosie_mind.parquet")
 ```
 
-651 samples, health-domain Wikipedia EN/ES, human-annotated. The v2 split used `BAAI/bge-m3` for embeddings and `llama3.3:70b` for LLM verification — a reasonable target configuration for comparison.
+651 muestras,en Español e Inglés, especializado en el salud. El Split-V2 usóv los embeddings `BAAI/bge-m3` y `llama3.3:70b` como LLM.

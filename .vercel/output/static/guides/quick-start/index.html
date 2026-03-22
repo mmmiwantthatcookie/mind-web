@@ -35,7 +35,6 @@ Request Demo
 <span class="line"><span style="color:#79B8FF">  --tgt_lang</span><span style="color:#9ECBFF"> en</span><span style="color:#79B8FF"> \</span></span>
 <span class="line"><span style="color:#79B8FF">  --text_col</span><span style="color:#9ECBFF"> text</span><span style="color:#79B8FF"> \</span></span>
 <span class="line"><span style="color:#79B8FF">  --lang_col</span><span style="color:#9ECBFF"> lang</span></span></code></pre>
-<p>If your corpus is already bilingual, skip straight to the next step.</p>
 <h2 id="prepare-pair-the-data">Prepare: pair the data</h2>
 <p>The data preparer takes an anchor corpus (source language) and a comparison corpus (target), matches them by topic similarity, and outputs the training format for the topic model.</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">python3</span><span style="color:#9ECBFF"> src/mind/corpus_building/data_preparer.py</span><span style="color:#79B8FF"> \</span></span>
@@ -65,7 +64,6 @@ Request Demo
 <span class="line"><span style="color:#79B8FF">  --tgt_lang_filter</span><span style="color:#9ECBFF"> es</span><span style="color:#79B8FF"> \</span></span>
 <span class="line"><span style="color:#79B8FF">  --topics</span><span style="color:#79B8FF"> 0</span><span style="color:#79B8FF"> 1</span><span style="color:#79B8FF"> 4</span><span style="color:#79B8FF"> 7</span><span style="color:#79B8FF"> \</span></span>
 <span class="line"><span style="color:#79B8FF">  --path_save</span><span style="color:#9ECBFF"> results/</span></span></code></pre>
-<p>Each topic ID runs independently, so you can parallelize across them if needed. Runtime scales with corpus size and the LLM backend — Gemini Flash is fast; local Ollama on CPU is slow.</p>
 <h2 id="review-results">Review results</h2>
 <p>Results land in <code>results/</code> as a Parquet file. Load in a notebook or push into the web app. Each row has:</p>
 <ul>
