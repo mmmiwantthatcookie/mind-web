@@ -1,0 +1,355 @@
+<!DOCTYPE html><html lang="en" class="dark"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro v6.0.6"><!-- SEO --><title>MIND CLI Complete Guide — MIND</title><meta name="description" content="End-to-end guide to using the MIND command-line interface for multilingual inconsistency detection workflows."><meta name="robots" content="index, follow"><!-- Open Graph --><meta property="og:title" content="MIND CLI Complete Guide — MIND"><meta property="og:description" content="End-to-end guide to using the MIND command-line interface for multilingual inconsistency detection workflows."><meta property="og:type" content="website"><!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><!-- Phosphor Icons --><link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"><!-- Theme init: prevent flash by reading localStorage before paint --><script>
+      (function() {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (stored === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else if (stored === 'dark' || prefersDark) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/Footer.Dpvx-XJP.css">
+<style>.sidebar[data-astro-cid-ciwjiil5]{position:sticky;top:80px;height:fit-content;max-height:calc(100vh - 96px);overflow-y:auto;padding-right:2rem;border-right:1px solid var(--color-border)}.sidebar-nav[data-astro-cid-ciwjiil5]{display:flex;flex-direction:column;gap:2rem;padding-bottom:2rem}.sidebar-section-title[data-astro-cid-ciwjiil5]{font-size:var(--text-sm);font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:.75rem;padding-left:.75rem}.sidebar-links[data-astro-cid-ciwjiil5]{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:3px}.sidebar-link[data-astro-cid-ciwjiil5]{display:block;padding:.5rem .75rem;font-size:var(--text-body);color:var(--color-text-secondary);text-decoration:none;border-left:2px solid transparent;border-radius:0 var(--radius-button) var(--radius-button) 0;transition:color .2s ease,border-color .2s ease,background-color .2s ease;line-height:1.4}.sidebar-link[data-astro-cid-ciwjiil5]:hover{color:var(--color-electric);background:var(--color-electric-subtle)}.sidebar-link[data-astro-cid-ciwjiil5].active{color:var(--color-electric);border-left-color:var(--color-electric);font-weight:600;background:var(--color-electric-subtle)}@media(max-width:1024px){.sidebar[data-astro-cid-ciwjiil5]{display:none}}.toc[data-astro-cid-i775gsh6]{position:sticky;top:80px;height:fit-content;max-height:calc(100vh - 96px);overflow-y:auto;padding-left:2rem;border-left:1px solid var(--color-border)}.toc-title[data-astro-cid-i775gsh6]{font-size:var(--text-sm);font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:1rem}.toc-list[data-astro-cid-i775gsh6]{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.35rem}.toc-item[data-astro-cid-i775gsh6]{padding-left:0}.toc-item-nested[data-astro-cid-i775gsh6]{padding-left:1rem}.toc-link[data-astro-cid-i775gsh6]{display:block;font-size:var(--text-sm);color:var(--color-text-secondary);text-decoration:none;padding:.25rem 0;transition:color .2s ease;line-height:1.5}.toc-link[data-astro-cid-i775gsh6]:hover{color:var(--color-electric)}@media(max-width:1280px){.toc[data-astro-cid-i775gsh6]{display:none}}.content-page[data-astro-cid-scuu7fyy]{width:100%;box-sizing:border-box;margin:0 auto;display:grid;grid-template-columns:minmax(200px,240px) 1fr;gap:0;padding:2.5rem 3rem var(--spacing-section);min-height:calc(100vh - 64px);align-items:start}.content-page[data-astro-cid-scuu7fyy].has-toc{grid-template-columns:minmax(200px,240px) 1fr minmax(180px,220px)}.content-main[data-astro-cid-scuu7fyy]{padding:0 2.5rem;min-width:0}@media(max-width:1280px){.content-page[data-astro-cid-scuu7fyy].has-toc{grid-template-columns:minmax(200px,240px) 1fr}}@media(max-width:1024px){.content-page[data-astro-cid-scuu7fyy],.content-page[data-astro-cid-scuu7fyy].has-toc{grid-template-columns:1fr}.content-main[data-astro-cid-scuu7fyy]{padding:0}}
+</style></head> <body>  <nav class="navbar" aria-label="Main navigation" data-astro-cid-72p4zy4d> <div class="navbar-inner" data-astro-cid-72p4zy4d> <!-- Logotype --> <a href="/" class="navbar-logo" aria-label="MIND Home" data-astro-cid-72p4zy4d>
+MIND
+</a> <!-- Desktop nav links --> <div class="navbar-links" id="navbar-links" data-astro-cid-72p4zy4d> <a href="/docs/getting-started" class="navbar-link" data-astro-cid-72p4zy4d>Docs</a><a href="/guides/quick-start" class="navbar-link" data-astro-cid-72p4zy4d>Guides</a><a href="/changelog" class="navbar-link" data-astro-cid-72p4zy4d>Changelog</a> </div> <!-- Right-side actions --> <div class="navbar-actions" data-astro-cid-72p4zy4d> <a href="/es/guides/cli-usage-guide/" class="lang-toggle" aria-label="Switch to Spanish" title="Switch to Español" data-astro-cid-if7ttun3> <span class="lang-option active" data-astro-cid-if7ttun3>EN</span> <span class="lang-divider" data-astro-cid-if7ttun3>/</span> <span class="lang-option" data-astro-cid-if7ttun3>ES</span> </a> <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle theme" data-astro-cid-xunqggi2> <i class="ph ph-moon" id="theme-icon-dark" data-astro-cid-xunqggi2></i> <i class="ph ph-sun" id="theme-icon-light" data-astro-cid-xunqggi2></i> </button>  <script type="module">const s=document.getElementById("theme-toggle");s?.addEventListener("click",()=>{const t=document.documentElement,e=t.classList.contains("dark");t.classList.toggle("dark",!e),localStorage.setItem("theme",e?"light":"dark")});</script> <a href="mailto:ariadnaspinosa@protonmail.com" class="btn-primary navbar-cta" data-astro-cid-72p4zy4d>
+Request Demo
+</a> <!-- Mobile hamburger --> <button class="navbar-hamburger" id="navbar-hamburger" aria-label="Open menu" aria-expanded="false" data-astro-cid-72p4zy4d> <i class="ph ph-list" data-astro-cid-72p4zy4d></i> </button> </div> </div> <!-- Mobile drawer --> <div class="navbar-mobile" id="navbar-mobile" data-astro-cid-72p4zy4d> <a href="/docs/getting-started" class="navbar-mobile-link" data-astro-cid-72p4zy4d>Docs</a><a href="/guides/quick-start" class="navbar-mobile-link" data-astro-cid-72p4zy4d>Guides</a><a href="/changelog" class="navbar-mobile-link" data-astro-cid-72p4zy4d>Changelog</a> <a href="mailto:ariadnaspinosa@protonmail.com" class="btn-primary" style="margin-top: 1rem; justify-content: center;" data-astro-cid-72p4zy4d>
+Request Demo
+</a> </div> </nav>  <script type="module">const t=document.getElementById("navbar-hamburger"),s=document.getElementById("navbar-mobile");t?.addEventListener("click",()=>{const e=s?.classList.contains("open");s?.classList.toggle("open",!e),t.setAttribute("aria-expanded",String(!e));const n=t.querySelector("i");n&&(n.className=e?"ph ph-list":"ph ph-x")});</script> <div class="content-page has-toc" data-astro-cid-scuu7fyy> <aside class="sidebar" aria-label="Page navigation" data-astro-cid-ciwjiil5> <nav class="sidebar-nav" data-astro-cid-ciwjiil5> <div class="sidebar-section" data-astro-cid-ciwjiil5> <h3 class="sidebar-section-title" data-astro-cid-ciwjiil5>Guides</h3> <ul class="sidebar-links" data-astro-cid-ciwjiil5> <li data-astro-cid-ciwjiil5> <a href="/guides/quick-start" class="sidebar-link" data-astro-cid-ciwjiil5> Quick-Start Guide </a> </li><li data-astro-cid-ciwjiil5> <a href="/guides/cli-usage-guide" class="sidebar-link active" aria-current="page" data-astro-cid-ciwjiil5> MIND CLI Complete Guide </a> </li> </ul> </div> </nav> </aside> <main class="content-main" data-astro-cid-scuu7fyy> <article class="prose-mind" data-astro-cid-scuu7fyy>  <h1 id="mind-cli-complete-guide">MIND CLI Complete Guide</h1>
+<p>This guide covers the complete MIND workflow: raw documents to translation to topic modeling to detection. It assumes you have Python installed and some command-line experience.</p>
+<h2 id="overview">Overview</h2>
+<p>The MIND CLI has three command groups: <code>mind data</code> for preprocessing, <code>mind tm</code> for topic modeling, and <code>mind detect</code> for the detection pipeline. Everything is configured via YAML, which you can template with <code>mind detect init-config</code>.</p>
+<h2 id="setup">Setup</h2>
+<p>Install MIND with:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">pip</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> -e</span><span style="color:#9ECBFF"> .</span></span></code></pre>
+<p>You need two config files:</p>
+<ol>
+<li><strong><code>config/config.yaml</code></strong> — LLM backend, logging, cache paths. Set once, shared across all runs.</li>
+<li><strong><code>run_config.yaml</code></strong> — Job-specific: data paths, language pairs, topic IDs. Changes per experiment.</li>
+</ol>
+<p>To create a template:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> init-config</span><span style="color:#79B8FF"> --output</span><span style="color:#9ECBFF"> run_config.yaml</span></span></code></pre>
+<p>Uncomment the sections you need (data, tm, detect) and fill in paths.</p>
+<p>If your system config is in a non-standard location, pass it explicitly:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> data</span><span style="color:#9ECBFF"> segment</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span><span style="color:#79B8FF"> --system-config</span><span style="color:#9ECBFF"> /path/to/config.yaml</span></span></code></pre>
+<p>Most commands accept <code>--system-config</code>. If you keep <code>config/config.yaml</code> in the repo root, you can omit this flag.</p>
+<hr>
+<h2 id="data-preprocessing">Data Preprocessing</h2>
+<h3 id="mind-data-segment"><code>mind data segment</code></h3>
+<p>Splits documents into passages. Reads Parquet/CSV, outputs one row per passage.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> data</span><span style="color:#9ECBFF"> segment</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span></span></code></pre>
+<p>Config:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">data</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  segment</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    input</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">data/raw/documents.parquet</span></span>
+<span class="line"><span style="color:#85E89D">    output</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">data/processed/segmented</span></span>
+<span class="line"><span style="color:#85E89D">    text_col</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">text</span></span>
+<span class="line"><span style="color:#85E89D">    id_col</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">doc_id</span></span>
+<span class="line"><span style="color:#85E89D">    min_length</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">100</span></span>
+<span class="line"><span style="color:#85E89D">    separator</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"</span><span style="color:#79B8FF">\n</span><span style="color:#9ECBFF">"</span></span></code></pre>
+<ul>
+<li><code>separator</code> is the split delimiter. Use <code>\n</code> for newlines, <code>\n\n</code> for paragraphs.</li>
+<li>Splits shorter than <code>min_length</code> are dropped.</li>
+<li>Output is a single Parquet file with <code>chunk_id</code>, <code>text</code>, and metadata columns.</li>
+</ul>
+<p>Run once on mixed-language data, or separately per language if you prefer.</p>
+<h3 id="mind-data-translate"><code>mind data translate</code></h3>
+<p>Translates passages between EN↔ES, EN↔DE, EN↔IT. Two modes:</p>
+<p><strong>Monolingual (default):</strong> Translates source language to target, appends to dataset.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> data</span><span style="color:#9ECBFF"> translate</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">data</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  translate</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    input</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">data/segmented</span></span>
+<span class="line"><span style="color:#85E89D">    output</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">data/translated</span></span>
+<span class="line"><span style="color:#85E89D">    src_lang</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">en</span></span>
+<span class="line"><span style="color:#85E89D">    tgt_lang</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">es</span></span>
+<span class="line"><span style="color:#85E89D">    text_col</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">text</span></span>
+<span class="line"><span style="color:#85E89D">    lang_col</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">lang</span></span>
+<span class="line"><span style="color:#85E89D">    bilingual</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span></code></pre>
+<p>Takes <code>lang == "en"</code> rows, translates to Spanish, outputs one file.</p>
+<p><strong>Bilingual:</strong> For mixed-language data. Splits by language, translates both directions (EN→ES and ES→EN), outputs two files ready for <code>mind data prepare</code>.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> data</span><span style="color:#9ECBFF"> translate</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span><span style="color:#79B8FF"> --bilingual</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">data</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  translate</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    input</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">data/segmented</span></span>
+<span class="line"><span style="color:#85E89D">    output</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">data/translated</span></span>
+<span class="line"><span style="color:#85E89D">    src_lang</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">en</span></span>
+<span class="line"><span style="color:#85E89D">    tgt_lang</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">es</span></span>
+<span class="line"><span style="color:#85E89D">    text_col</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">text</span></span>
+<span class="line"><span style="color:#85E89D">    lang_col</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">lang</span></span>
+<span class="line"><span style="color:#85E89D">    bilingual</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span></code></pre>
+<p>Produces <code>data/translated_en2es</code> and <code>data/translated_es2en</code>—use these as anchor and comparison in the next step.</p>
+<h3 id="mind-data-prepare"><code>mind data prepare</code></h3>
+<p>Pairs anchor (source) and comparison (target) corpora, matches passages by similarity, formats for topic modeling.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> data</span><span style="color:#9ECBFF"> prepare</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">data</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  prepare</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    anchor</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">data/translated_en2de</span></span>
+<span class="line"><span style="color:#85E89D">    comparison</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">data/translated_de2en</span></span>
+<span class="line"><span style="color:#85E89D">    output</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">data/prepared</span></span>
+<span class="line"><span style="color:#85E89D">    schema</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">      chunk_id</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">chunk_id</span></span>
+<span class="line"><span style="color:#85E89D">      text</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">text</span></span>
+<span class="line"><span style="color:#85E89D">      lang</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">lang</span></span>
+<span class="line"><span style="color:#85E89D">      full_doc</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">full_doc</span></span>
+<span class="line"><span style="color:#85E89D">      doc_id</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">doc_id</span></span>
+<span class="line"><span style="color:#85E89D">    nlpipe_script</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">externals/NLPipe/src/nlpipe/cli.py</span></span>
+<span class="line"><span style="color:#85E89D">    nlpipe_config</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">externals/NLPipe/config.json</span></span>
+<span class="line"><span style="color:#85E89D">    stw_path</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">externals/NLPipe/src/nlpipe/stw_lists</span></span>
+<span class="line"><span style="color:#85E89D">    spacy_models</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">      en</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">en_core_web_sm</span></span>
+<span class="line"><span style="color:#85E89D">      de</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">de_core_news_sm</span></span></code></pre>
+<p>The <code>schema</code> maps your column names to what MIND expects. If your data already has the right column names, keep it minimal. The preparer internally handles tokenization and NLP preprocessing.</p>
+<hr>
+<h2 id="topic-modeling">Topic Modeling</h2>
+<h3 id="mind-tm-train"><code>mind tm train</code></h3>
+<p>Trains a topic model. Use Polylingual TM for two languages, LDA for one.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> tm</span><span style="color:#9ECBFF"> train</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span></span></code></pre>
+<p><strong>Bilingual (Polylingual TM):</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">tm</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  train</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    input</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">data/prepared</span></span>
+<span class="line"><span style="color:#85E89D">    lang1</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">en</span></span>
+<span class="line"><span style="color:#85E89D">    lang2</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">de</span></span>
+<span class="line"><span style="color:#85E89D">    model_folder</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">models/tm_ende</span></span>
+<span class="line"><span style="color:#85E89D">    num_topics</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">30</span></span>
+<span class="line"><span style="color:#85E89D">    alpha</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">1.0</span></span>
+<span class="line"><span style="color:#85E89D">    mallet_path</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">externals/Mallet-202108/bin/mallet</span></span>
+<span class="line"><span style="color:#85E89D">    stops_path</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">src/mind/topic_modeling/stops</span></span></code></pre>
+<p>Outputs: <code>doc_topics_en.npz</code>, <code>doc_topics_de.npz</code> (topic distributions), <code>topics.npz</code> (topic-word matrix), <code>vocabulary.pkl</code>.</p>
+<p><strong>Monolingual (LDA):</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">tm</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  train</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    input</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">data/prepared</span></span>
+<span class="line"><span style="color:#85E89D">    lang1</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">en</span></span>
+<span class="line"><span style="color:#85E89D">    lang2</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">null</span></span>
+<span class="line"><span style="color:#85E89D">    model_folder</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">models/lda</span></span>
+<span class="line"><span style="color:#85E89D">    num_topics</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">30</span></span>
+<span class="line"><span style="color:#85E89D">    alpha</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">1.0</span></span>
+<span class="line"><span style="color:#85E89D">    mallet_path</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">externals/Mallet-202108/bin/mallet</span></span></code></pre>
+<p>For 1–10k documents, 20–50 topics is typical. Start with 30, then review top words per topic to filter noise before detection.</p>
+<h3 id="mind-tm-label"><code>mind tm label</code></h3>
+<p>Generates human-readable topic labels using an LLM.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> tm</span><span style="color:#9ECBFF"> label</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">tm</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  label</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    model_folder</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">models/tm_ende</span></span>
+<span class="line"><span style="color:#85E89D">    lang1</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">en</span></span>
+<span class="line"><span style="color:#85E89D">    lang2</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">de</span></span></code></pre>
+<p>The LLM is queried with the top N words in each topic and returns a label. Labels are saved in the model folder.</p>
+<p>Override the LLM:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> tm</span><span style="color:#9ECBFF"> label</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  --llm-model</span><span style="color:#9ECBFF"> llama3.3:70b</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  --llm-server</span><span style="color:#9ECBFF"> http://localhost:11434</span></span></code></pre>
+<hr>
+<h2 id="detection">Detection</h2>
+<h3 id="mind-detect-init-config"><code>mind detect init-config</code></h3>
+<p>Scaffolds a template <code>run_config.yaml</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> init-config</span><span style="color:#79B8FF"> --output</span><span style="color:#9ECBFF"> run_config.yaml</span></span></code></pre>
+<p>Uncomment the sections you need (data, tm, detect) and fill in paths.</p>
+<h3 id="mind-detect-run"><code>mind detect run</code></h3>
+<p>The main detection command. Loads corpora, matches by topic, generates questions, detects inconsistencies.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> run</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span></span></code></pre>
+<p>Minimal config:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">detect</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  monolingual</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
+<span class="line"><span style="color:#85E89D">  topics</span><span style="color:#E1E4E8">: [</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#85E89D">  sample_size</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">null</span></span>
+<span class="line"><span style="color:#85E89D">  path_save</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">results</span></span>
+<span class="line"><span style="color:#85E89D">  method</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">TB-ENN</span></span>
+<span class="line"><span style="color:#85E89D">  do_weighting</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
+<span class="line"><span style="color:#85E89D">  do_check_entailment</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
+<span class="line"><span style="color:#85E89D">  selected_categories</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">null</span></span>
+<span class="line"><span style="color:#85E89D">  source</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    corpus_path</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">data/corpus_en.parquet</span></span>
+<span class="line"><span style="color:#85E89D">    thetas_path</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">data/thetas_en.npz</span></span>
+<span class="line"><span style="color:#85E89D">    id_col</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">doc_id</span></span>
+<span class="line"><span style="color:#85E89D">    passage_col</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">text</span></span>
+<span class="line"><span style="color:#85E89D">    full_doc_col</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">full_doc</span></span>
+<span class="line"><span style="color:#85E89D">    lang_filter</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">EN</span></span>
+<span class="line"><span style="color:#85E89D">    filter_ids_path</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">null</span></span>
+<span class="line"><span style="color:#85E89D">  target</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    corpus_path</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">data/corpus_de.parquet</span></span>
+<span class="line"><span style="color:#85E89D">    thetas_path</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">data/thetas_de.npz</span></span>
+<span class="line"><span style="color:#85E89D">    id_col</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">doc_id</span></span>
+<span class="line"><span style="color:#85E89D">    passage_col</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">text</span></span>
+<span class="line"><span style="color:#85E89D">    full_doc_col</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">full_doc</span></span>
+<span class="line"><span style="color:#85E89D">    lang_filter</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">DE</span></span>
+<span class="line"><span style="color:#85E89D">    index_path</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">indexes</span></span></code></pre>
+<p>Key options:</p>
+<ul>
+<li><code>topics</code>: 1-indexed IDs. MIND processes one topic at a time.</li>
+<li><code>sample_size</code>: Limit passages per topic for testing. <code>null</code> = all.</li>
+<li><code>method</code>: <code>TB-ENN</code> (embedding-based, default) or <code>BM25</code> (keyword-based).</li>
+<li><code>monolingual</code>: Set true for same-language comparisons (e.g., dialects).</li>
+<li><code>do_check_entailment</code>: Lightweight NLI check before LLM labeling (slower, catches some false positives).</li>
+<li><code>filter_ids_path</code>: File with one ID per line—only these passages run.</li>
+<li><code>lang_filter</code>: Narrows loaded passages. If no language column, use same value for both.</li>
+</ul>
+<p>Command-line overrides:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> run</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  --topics</span><span style="color:#9ECBFF"> 5,7</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  --sample-size</span><span style="color:#79B8FF"> 50</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  --llm-model</span><span style="color:#9ECBFF"> llama3.3:70b</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  --llm-server</span><span style="color:#9ECBFF"> http://localhost:11434</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  --check-entailment</span></span></code></pre>
+<p>Flags override config, so no need for separate configs per experiment.</p>
+<p><strong>Dry run (validate without writing output):</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> run</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span><span style="color:#79B8FF"> --dry-run</span></span></code></pre>
+<p><strong>Log to file:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> run</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span><span style="color:#79B8FF"> --log-file</span><span style="color:#9ECBFF"> run.log</span></span></code></pre>
+<h3 id="mind-detect-peek"><code>mind detect peek</code></h3>
+<p>Inspects and summarizes detection results:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> peek</span><span style="color:#9ECBFF"> results/</span></span></code></pre>
+<p>Shows: label counts/percentages, breakdown by topic, sample results.</p>
+<p>Common options:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> peek</span><span style="color:#9ECBFF"> results/</span><span style="color:#79B8FF"> --topic</span><span style="color:#79B8FF"> 3</span></span>
+<span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> peek</span><span style="color:#9ECBFF"> results/</span><span style="color:#79B8FF"> --label</span><span style="color:#9ECBFF"> CONTRADICTION</span></span>
+<span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> peek</span><span style="color:#9ECBFF"> results/</span><span style="color:#79B8FF"> --limit</span><span style="color:#79B8FF"> 10</span></span>
+<span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> peek</span><span style="color:#9ECBFF"> results/</span><span style="color:#79B8FF"> --export</span><span style="color:#9ECBFF"> summary.csv</span></span></code></pre>
+<p>Results are consolidated into <code>mind_results.parquet</code>, which <code>peek</code> reads.</p>
+<hr>
+<h2 id="configuration">Configuration</h2>
+<h3 id="managing-configs">Managing Configs</h3>
+<p>Keep separate <code>run_config.yaml</code> files per experiment:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>runs/</span></span>
+<span class="line"><span>├── run_config_en_de.yaml</span></span>
+<span class="line"><span>├── run_config_test.yaml</span></span>
+<span class="line"><span>└── run_config_mono.yaml</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> run</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> runs/run_config_en_de.yaml</span></span></code></pre>
+<h3 id="reusing-trained-models">Reusing Trained Models</h3>
+<p>Train once, run detection multiple times:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> tm</span><span style="color:#9ECBFF"> train</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> run</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span><span style="color:#79B8FF"> --topics</span><span style="color:#9ECBFF"> 1,2,3</span></span>
+<span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> run</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span><span style="color:#79B8FF"> --topics</span><span style="color:#9ECBFF"> 10,15,20</span></span></code></pre>
+<h3 id="quick-iteration">Quick Iteration</h3>
+<p>Use flags to avoid rewriting config:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Test with small sample, no output</span></span>
+<span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> run</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span><span style="color:#79B8FF"> --sample-size</span><span style="color:#79B8FF"> 10</span><span style="color:#79B8FF"> --dry-run</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Run on 100 passages</span></span>
+<span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> run</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span><span style="color:#79B8FF"> --sample-size</span><span style="color:#79B8FF"> 100</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Full run</span></span>
+<span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> run</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span></span></code></pre>
+<hr>
+<h2 id="examples">Examples</h2>
+<p><strong>From raw data to detection:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> data</span><span style="color:#9ECBFF"> segment</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span></span>
+<span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> data</span><span style="color:#9ECBFF"> translate</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span><span style="color:#79B8FF"> --bilingual</span></span>
+<span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> data</span><span style="color:#9ECBFF"> prepare</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span></span>
+<span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> tm</span><span style="color:#9ECBFF"> train</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span></span>
+<span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> tm</span><span style="color:#9ECBFF"> label</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span></span>
+<span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> run</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span><span style="color:#79B8FF"> --topics</span><span style="color:#9ECBFF"> 1,2,3</span></span></code></pre>
+<p><strong>Detect with pre-trained model:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> run</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span><span style="color:#79B8FF"> --topics</span><span style="color:#9ECBFF"> 5,10</span></span>
+<span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> peek</span><span style="color:#9ECBFF"> results/</span></span></code></pre>
+<p><strong>Quick test then full run:</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> run</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span><span style="color:#79B8FF"> --sample-size</span><span style="color:#79B8FF"> 10</span><span style="color:#79B8FF"> --dry-run</span></span>
+<span class="line"><span style="color:#B392F0">mind</span><span style="color:#9ECBFF"> detect</span><span style="color:#9ECBFF"> run</span><span style="color:#79B8FF"> --config</span><span style="color:#9ECBFF"> run_config.yaml</span></span></code></pre>
+<hr>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p><strong>“Run config must contain a ‘detect’ section”</strong></p>
+<p>Check that <code>detect:</code> is uncommented and properly indented (YAML is whitespace-sensitive).</p>
+<p><strong>“Unsupported language pair”</strong></p>
+<p>Translator supports EN↔ES, EN↔DE, EN↔IT only. Use external tools for other pairs, then pass output to <code>mind data prepare</code>.</p>
+<p><strong>“No topics matching filter”</strong></p>
+<p>Topic IDs are 1-indexed. For 30 topics, valid IDs are 1–30. Check your config or use <code>mind detect peek results/</code>.</p>
+<p><strong>LLM server unreachable</strong></p>
+<p>Test with <code>curl http://localhost:11434/api/tags</code> (Ollama) or ensure <code>XXX_API_KEY</code> is set. Check <code>config/config.yaml</code>.</p>
+<p><strong>Out of memory during topic modeling</strong></p>
+<p>Polylingual TM loads the full corpus. For >100k documents:</p>
+<ol>
+<li>Reduce <code>num_topics</code>.</li>
+<li>Train on smaller batches separately.</li>
+<li>Use more RAM.</li>
+</ol>
+<p><strong>Detection is slow</strong></p>
+<p>Likely causes:</p>
+<ol>
+<li><strong>Retrieval</strong>: Use <code>--sample-size</code> for testing.</li>
+<li><strong>LLM</strong>: Reduce <code>num_topics</code> or <code>selected_categories</code>.</li>
+<li><strong>Disk I/O</strong>: Use local storage, not network mounts.</li>
+</ol>
+<hr>
+<h2 id="python-api">Python API</h2>
+<p>MIND’s core is a Python library. For programmatic use:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">from</span><span style="color:#E1E4E8"> mind.pipeline.pipeline </span><span style="color:#F97583">import</span><span style="color:#79B8FF"> MIND</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">mind </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> MIND(</span></span>
+<span class="line"><span style="color:#FFAB70">    source_corpus</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#9ECBFF">        "corpus_path"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"data/corpus_en.parquet"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "thetas_path"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"data/thetas_en.npz"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "id_col"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"doc_id"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "passage_col"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"text"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "lang_filter"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"EN"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#FFAB70">    target_corpus</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#9ECBFF">        "corpus_path"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"data/corpus_de.parquet"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "thetas_path"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"data/thetas_de.npz"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "id_col"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"doc_id"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "passage_col"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"text"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "lang_filter"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"DE"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#FFAB70">    retrieval_method</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"TB-ENN"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">    config_path</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"config/config.yaml"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">results </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> mind.run_pipeline(</span><span style="color:#FFAB70">topics</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">[</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">], </span><span style="color:#FFAB70">sample_size</span><span style="color:#F97583">=</span><span style="color:#79B8FF">None</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">path_save</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"results/"</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<p>See module docstrings for details.</p>  </article> </main> <nav class="toc" aria-label="Table of contents" data-astro-cid-i775gsh6><h4 class="toc-title" data-astro-cid-i775gsh6>On this page</h4><ul class="toc-list" data-astro-cid-i775gsh6><li class="toc-item" data-astro-cid-i775gsh6><a href="#overview" class="toc-link" data-astro-cid-i775gsh6>Overview</a></li><li class="toc-item" data-astro-cid-i775gsh6><a href="#setup" class="toc-link" data-astro-cid-i775gsh6>Setup</a></li><li class="toc-item" data-astro-cid-i775gsh6><a href="#data-preprocessing" class="toc-link" data-astro-cid-i775gsh6>Data Preprocessing</a></li><li class="toc-item toc-item-nested" data-astro-cid-i775gsh6><a href="#mind-data-segment" class="toc-link" data-astro-cid-i775gsh6>mind data segment</a></li><li class="toc-item toc-item-nested" data-astro-cid-i775gsh6><a href="#mind-data-translate" class="toc-link" data-astro-cid-i775gsh6>mind data translate</a></li><li class="toc-item toc-item-nested" data-astro-cid-i775gsh6><a href="#mind-data-prepare" class="toc-link" data-astro-cid-i775gsh6>mind data prepare</a></li><li class="toc-item" data-astro-cid-i775gsh6><a href="#topic-modeling" class="toc-link" data-astro-cid-i775gsh6>Topic Modeling</a></li><li class="toc-item toc-item-nested" data-astro-cid-i775gsh6><a href="#mind-tm-train" class="toc-link" data-astro-cid-i775gsh6>mind tm train</a></li><li class="toc-item toc-item-nested" data-astro-cid-i775gsh6><a href="#mind-tm-label" class="toc-link" data-astro-cid-i775gsh6>mind tm label</a></li><li class="toc-item" data-astro-cid-i775gsh6><a href="#detection" class="toc-link" data-astro-cid-i775gsh6>Detection</a></li><li class="toc-item toc-item-nested" data-astro-cid-i775gsh6><a href="#mind-detect-init-config" class="toc-link" data-astro-cid-i775gsh6>mind detect init-config</a></li><li class="toc-item toc-item-nested" data-astro-cid-i775gsh6><a href="#mind-detect-run" class="toc-link" data-astro-cid-i775gsh6>mind detect run</a></li><li class="toc-item toc-item-nested" data-astro-cid-i775gsh6><a href="#mind-detect-peek" class="toc-link" data-astro-cid-i775gsh6>mind detect peek</a></li><li class="toc-item" data-astro-cid-i775gsh6><a href="#configuration" class="toc-link" data-astro-cid-i775gsh6>Configuration</a></li><li class="toc-item toc-item-nested" data-astro-cid-i775gsh6><a href="#managing-configs" class="toc-link" data-astro-cid-i775gsh6>Managing Configs</a></li><li class="toc-item toc-item-nested" data-astro-cid-i775gsh6><a href="#reusing-trained-models" class="toc-link" data-astro-cid-i775gsh6>Reusing Trained Models</a></li><li class="toc-item toc-item-nested" data-astro-cid-i775gsh6><a href="#quick-iteration" class="toc-link" data-astro-cid-i775gsh6>Quick Iteration</a></li><li class="toc-item" data-astro-cid-i775gsh6><a href="#examples" class="toc-link" data-astro-cid-i775gsh6>Examples</a></li><li class="toc-item" data-astro-cid-i775gsh6><a href="#troubleshooting" class="toc-link" data-astro-cid-i775gsh6>Troubleshooting</a></li><li class="toc-item" data-astro-cid-i775gsh6><a href="#python-api" class="toc-link" data-astro-cid-i775gsh6>Python API</a></li></ul></nav> </div> <footer class="footer" data-astro-cid-tgc5tww7> <div class="footer-inner" data-astro-cid-tgc5tww7> <!-- Column 1: Navigation --> <div class="footer-col" data-astro-cid-tgc5tww7> <h4 class="footer-heading" data-astro-cid-tgc5tww7>Navigation</h4> <a href="/docs/getting-started" class="footer-link" data-astro-cid-tgc5tww7>Documentation</a> <a href="/guides/quick-start" class="footer-link" data-astro-cid-tgc5tww7>Guides</a> <a href="/changelog" class="footer-link" data-astro-cid-tgc5tww7>Changelog</a> </div> <!-- Column 2: Project --> <div class="footer-col" data-astro-cid-tgc5tww7> <h4 class="footer-heading" data-astro-cid-tgc5tww7>Project</h4> <a href="https://github.com/ShockCitrus/mind-industry" target="_blank" rel="noopener noreferrer" class="footer-link" data-astro-cid-tgc5tww7> <i class="ph ph-github-logo" data-astro-cid-tgc5tww7></i> GitHub
+</a> <a href="https://huggingface.co/lcalvobartolome/datasets" target="_blank" rel="noopener noreferrer" class="footer-link" data-astro-cid-tgc5tww7>
+HuggingFace Datasets
+</a> <a href="mailto:ariadnaspinosa@protonmail.com" class="footer-link" data-astro-cid-tgc5tww7> <i class="ph ph-envelope" data-astro-cid-tgc5tww7></i> Contact
+</a> </div> <!-- Column 3: Legal --> <div class="footer-col" data-astro-cid-tgc5tww7> <h4 class="footer-heading" data-astro-cid-tgc5tww7>About</h4> <p class="footer-text" data-astro-cid-tgc5tww7>
+MIND is an award-winning AI pipeline for multilingual inconsistency detection, presented at EMNLP 2025.
+</p> <p class="footer-text footer-copyright" data-astro-cid-tgc5tww7>
+&copy; 2026 MIND Project. All rights reserved.
+</p> </div> </div> </footer>  <!-- Scripts: scroll animations + copy buttons on all <pre> blocks --> <script>
+      document.addEventListener('DOMContentLoaded', function () {
+
+        // ── Scroll animation observer ──────────────────────────────────
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('animate-in');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('[data-animate]').forEach(function (el) {
+          observer.observe(el);
+        });
+
+        // ── Auto copy button on every <pre> ───────────────────────────
+        document.querySelectorAll('pre').forEach(function (pre) {
+          if (pre.parentElement && pre.parentElement.classList.contains('pre-wrapper')) return;
+
+          var wrapper = document.createElement('div');
+          wrapper.className = 'pre-wrapper';
+          pre.parentNode.insertBefore(wrapper, pre);
+          wrapper.appendChild(pre);
+
+          var btn = document.createElement('button');
+          btn.className = 'pre-copy-btn';
+          btn.setAttribute('aria-label', 'Copy code');
+          btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/></svg><span>Copy</span>';
+
+          btn.addEventListener('click', function () {
+            var code = pre.querySelector('code') || pre;
+            navigator.clipboard.writeText(code.textContent || '').then(function () {
+              btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg><span>Copied!</span>';
+              btn.classList.add('copied');
+              setTimeout(function () {
+                btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/></svg><span>Copy</span>';
+                btn.classList.remove('copied');
+              }, 2000);
+            });
+          });
+
+          wrapper.appendChild(btn);
+        });
+
+      });
+    </script> </body> </html>

@@ -19,7 +19,39 @@ Request Demo
 Request Demo
 </a> </div> </nav>  <script type="module">const t=document.getElementById("navbar-hamburger"),s=document.getElementById("navbar-mobile");t?.addEventListener("click",()=>{const e=s?.classList.contains("open");s?.classList.toggle("open",!e),t.setAttribute("aria-expanded",String(!e));const n=t.querySelector("i");n&&(n.className=e?"ph ph-list":"ph ph-x")});</script> <main class="changelog-page" data-astro-cid-bd6alw26> <div class="changelog-inner" data-astro-cid-bd6alw26> <h1 class="changelog-heading" data-animate data-astro-cid-bd6alw26> <span class="text-gradient" data-astro-cid-bd6alw26>Changelog</span> </h1> <p class="changelog-subtitle" data-animate data-delay="1" data-astro-cid-bd6alw26>
 Track the evolution of MIND — new features, fixes, datasets, and research milestones.
-</p> <div class="timeline" data-astro-cid-drdvixqo> <div class="timeline-entry" data-animate data-astro-cid-drdvixqo> <div class="timeline-marker" data-astro-cid-drdvixqo></div> <div class="timeline-card glass-card" data-astro-cid-drdvixqo> <div class="timeline-header" data-astro-cid-drdvixqo> <time class="timeline-date" datetime="2025-12-01T00:00:00.000Z" data-astro-cid-drdvixqo> December 1, 2025 </time> <span class="timeline-badge badge-research" data-astro-cid-drdvixqo> Research </span> <span class="timeline-version" data-astro-cid-drdvixqo>v1.0.0</span> </div> <div class="timeline-content prose-mind" data-astro-cid-drdvixqo> <h2 id="v100--initial-public-release">v1.0.0 — Initial public release</h2>
+</p> <div class="timeline" data-astro-cid-drdvixqo> <div class="timeline-entry" data-animate data-astro-cid-drdvixqo> <div class="timeline-marker" data-astro-cid-drdvixqo></div> <div class="timeline-card glass-card" data-astro-cid-drdvixqo> <div class="timeline-header" data-astro-cid-drdvixqo> <time class="timeline-date" datetime="2026-03-31T00:00:00.000Z" data-astro-cid-drdvixqo> March 31, 2026 </time> <span class="timeline-badge badge-research" data-astro-cid-drdvixqo> Research </span> <span class="timeline-version" data-astro-cid-drdvixqo>v0.2.0-alpha</span> </div> <div class="timeline-content prose-mind" data-astro-cid-drdvixqo> <h2 id="020-alpha--improved-cli-mode">0.2.0-alpha — Improved CLI mode</h2>
+<p>A complete command-line interface for MIND, enabling you to run the full detection pipeline without Docker or the web application. Once installed and configured, execute discrepancy detection directly from your terminal: <strong>install, configure, detect, and MIND the inconsistencies!</strong></p>
+<h3 id="whats-in-this-release">What’s in this release</h3>
+<h4 id="core-commands-sorted-by-stage">Core Commands (Sorted by stage)</h4>
+<p><strong>Data Preprocessing</strong></p>
+<ul>
+<li><code>mind data segment</code> — Segment raw documents into passages</li>
+<li><code>mind data translate</code> — Translate passages across language pairs with optional bilingual output</li>
+<li><code>mind data prepare</code> — Prepare processed data for topic modeling</li>
+</ul>
+<p><strong>Topic Modeling</strong></p>
+<ul>
+<li><code>mind tm train</code> — Train monolingual LDA or polylingual topic models.</li>
+<li><code>mind tm label</code> — Generate human-readable topic labels using LLMs</li>
+</ul>
+<p><strong>Discrepancy Detection</strong></p>
+<ul>
+<li><code>mind detect run</code> — Execute the full inconsistency detection pipeline</li>
+<li><code>mind detect peek</code> — Visualize detection results with color-coded labels (Contradiction, Not Enough Info, No Discrepancy)</li>
+</ul>
+<h4 id="key-features">Key Features</h4>
+<ul>
+<li><strong>Centralized Configuration</strong> — All pipeline steps controlled via single <code>run_config.yaml</code> with optional system-wide config overrides</li>
+<li><strong>Rich CLI Output</strong> — Progress bars, colored labels, structured panels, and better error messages</li>
+<li><strong>Low-resource Visualization</strong> — Peek at results without external tools—table summaries, statistics, and sample data inline</li>
+<li><strong>Modular Processing</strong> — Run preprocessing, modeling, and detection separately or as a complete pipeline</li>
+</ul>
+<h4 id="improvements-over-previous-version">Improvements Over Previous Version</h4>
+<ul>
+<li>Replaced ad-hoc Python scripts with a structured command-based interface</li>
+<li>Better error handling and logging</li>
+<li>Consistent configuration schema across all commands</li>
+</ul> </div> </div> </div><div class="timeline-entry" data-animate data-astro-cid-drdvixqo> <div class="timeline-marker" data-astro-cid-drdvixqo></div> <div class="timeline-card glass-card" data-astro-cid-drdvixqo> <div class="timeline-header" data-astro-cid-drdvixqo> <time class="timeline-date" datetime="2025-12-01T00:00:00.000Z" data-astro-cid-drdvixqo> December 1, 2025 </time> <span class="timeline-badge badge-research" data-astro-cid-drdvixqo> Research </span> <span class="timeline-version" data-astro-cid-drdvixqo>v0.1.0-alpha</span> </div> <div class="timeline-content prose-mind" data-astro-cid-drdvixqo> <h2 id="010-alpha--initial-public-release">0.1.0-alpha — Initial public release</h2>
 <p>Published alongside the EMNLP 2025 paper (pages 22024–22065). This is the first version that’s meant for external use — the code was cleaned up, the Docker stack was made reproducible, and the web application was brought to a state where you don’t need to read the source to use it.</p>
 <h3 id="whats-in-this-release">What’s in this release</h3>
 <p>The web app handles the full workflow: upload a dataset, preprocess it, train a topic model, run detection, review results. No code required. Configure your LLM license and start detecting.</p>
