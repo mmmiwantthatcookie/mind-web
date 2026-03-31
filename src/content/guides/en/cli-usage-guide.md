@@ -1,7 +1,7 @@
 ---
 title: "MIND CLI Complete Guide"
 description: "End-to-end guide to using the MIND command-line interface for multilingual inconsistency detection workflows."
-date: 2026-03-31
+date: 2026-04-01
 lang: en
 order: 2
 ---

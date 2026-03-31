@@ -1,7 +1,7 @@
 ---
 title: "Guía Completa de MIND CLI"
 description: "Guía de extremo a extremo para usar la interfaz de línea de comandos de MIND para flujos de trabajo de detección de inconsistencias multilingües."
-date: 2026-03-31
+date: 2026-04-01
 lang: es
 order: 2
 ---
