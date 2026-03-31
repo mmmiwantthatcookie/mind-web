@@ -1,12 +1,12 @@
 ---
-title: "MIND v1.0 — Lanzamiento Público Inicial"
+title: "MIND 0.1.0-alpha — Lanzamiento Público Inicial"
 date: 2025-12-01
 lang: es
 type: research
-version: "1.0.0"
+version: "0.1.0-alpha"
 ---
 
-## v1.0.0 — Release inicial
+## 0.1.0-alpha — Release inicial
 
 Publicado en conjunto con el paper en EMNLP 2025 (páginas 22024-22065). Esta es la primera versión apta para uso externo. El código ha sido limpiado, el stack de Docker optimizado y hecho reproducible, y la app web mejorada para poder ser utilizada intuitivamente.
 
