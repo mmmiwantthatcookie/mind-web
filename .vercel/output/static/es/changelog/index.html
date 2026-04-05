@@ -19,7 +19,37 @@ Request Demo
 Request Demo
 </a> </div> </nav>  <script type="module">const t=document.getElementById("navbar-hamburger"),s=document.getElementById("navbar-mobile");t?.addEventListener("click",()=>{const e=s?.classList.contains("open");s?.classList.toggle("open",!e),t.setAttribute("aria-expanded",String(!e));const n=t.querySelector("i");n&&(n.className=e?"ph ph-list":"ph ph-x")});</script> <main class="changelog-page" data-astro-cid-ceygovz3> <div class="changelog-inner" data-astro-cid-ceygovz3> <h1 class="changelog-heading" data-animate data-astro-cid-ceygovz3> <span class="text-gradient" data-astro-cid-ceygovz3>Registro de Cambios</span> </h1> <p class="changelog-subtitle" data-animate data-delay="1" data-astro-cid-ceygovz3>
 Sigue la evolución de MIND — nuevas funcionalidades, correcciones, datasets e hitos de investigación.
-</p> <div class="timeline" data-astro-cid-drdvixqo> <div class="timeline-entry" data-animate data-astro-cid-drdvixqo> <div class="timeline-marker" data-astro-cid-drdvixqo></div> <div class="timeline-card glass-card" data-astro-cid-drdvixqo> <div class="timeline-header" data-astro-cid-drdvixqo> <time class="timeline-date" datetime="2026-03-31T00:00:00.000Z" data-astro-cid-drdvixqo> March 31, 2026 </time> <span class="timeline-badge badge-research" data-astro-cid-drdvixqo> Research </span> <span class="timeline-version" data-astro-cid-drdvixqo>v0.2.0-alpha</span> </div> <div class="timeline-content prose-mind" data-astro-cid-drdvixqo> <h2 id="020-alpha--modo-cli-mejorado">0.2.0-alpha — Modo CLI mejorado</h2>
+</p> <div class="timeline" data-astro-cid-drdvixqo> <div class="timeline-entry" data-animate data-astro-cid-drdvixqo> <div class="timeline-marker" data-astro-cid-drdvixqo></div> <div class="timeline-card glass-card" data-astro-cid-drdvixqo> <div class="timeline-header" data-astro-cid-drdvixqo> <time class="timeline-date" datetime="2026-04-05T00:00:00.000Z" data-astro-cid-drdvixqo> April 5, 2026 </time> <span class="timeline-badge badge-fix" data-astro-cid-drdvixqo> Fix </span> <span class="timeline-version" data-astro-cid-drdvixqo>v0.2.1</span> </div> <div class="timeline-content prose-mind" data-astro-cid-drdvixqo> <h2 id="v021--correcciones-de-bugs-y-búsqueda-avanzada">v0.2.1 — Correcciones de bugs y búsqueda avanzada</h2>
+<p>Correcciones en la interfaz web, validación mejorada en formularios, y nuevo soporte para carga de datasets. Opciones de búsqueda avanzada (Tier 2A/2B) añadidas pero deshabilitadas por defecto.</p>
+<h3 id="correcciones">Correcciones</h3>
+<h4 id="interfaz-web-y-formularios">Interfaz web y Formularios</h4>
+<ul>
+<li>Formulario de registro mantiene email/usuario si falla validación (sin reescribir)</li>
+<li>Eliminar cuenta (Zona Peligrosa) bugs solucionados—ahora funciona correctamente</li>
+<li>Zona Peligrosa rediseñada para mayor claridad</li>
+</ul>
+<h4 id="backend-y-detección">Backend y Detección</h4>
+<ul>
+<li>Resultados de detección ordenados por pares ancla-objetivo (antes inconsistente)</li>
+<li>Carga de prompts soporta rutas alternativas para despliegues más flexibles</li>
+</ul>
+<h3 id="nuevas-capacidades">Nuevas Capacidades</h3>
+<h4 id="gestión-de-datasets">Gestión de Datasets</h4>
+<ul>
+<li>Carga de datasets disponible en interfaz web con validación</li>
+</ul>
+<h4 id="búsqueda-avanzada-opcional">Búsqueda Avanzada (Opcional)</h4>
+<p>Nuevos flags de configuración (deshabilitados por defecto):</p>
+<ul>
+<li><code>use_cross_encoder_rerank</code> — reranking con BAAI/bge-reranker-v2-m3</li>
+<li><code>use_bidirectional_retrieval</code> — combina puntuación hacia adelante + inversa (<code>bidirectional_alpha: 0.6</code>)</li>
+</ul>
+<p>Habilita en <code>config.yaml</code> para probar; no recomendado aún para producción.</p>
+<h3 id="notas">Notas</h3>
+<ul>
+<li>Sin cambios de ruptura; retrocompatible</li>
+<li>Reemplazo directo de v0.2.0-alpha</li>
+</ul> </div> </div> </div><div class="timeline-entry" data-animate data-astro-cid-drdvixqo> <div class="timeline-marker" data-astro-cid-drdvixqo></div> <div class="timeline-card glass-card" data-astro-cid-drdvixqo> <div class="timeline-header" data-astro-cid-drdvixqo> <time class="timeline-date" datetime="2026-03-31T00:00:00.000Z" data-astro-cid-drdvixqo> March 31, 2026 </time> <span class="timeline-badge badge-research" data-astro-cid-drdvixqo> Research </span> <span class="timeline-version" data-astro-cid-drdvixqo>v0.2.0-alpha</span> </div> <div class="timeline-content prose-mind" data-astro-cid-drdvixqo> <h2 id="020-alpha--modo-cli-mejorado">0.2.0-alpha — Modo CLI mejorado</h2>
 <p>Nueva interfaz de línea de comandos para MIND. Ejecuta la pipeline de detección al completo sin usar docker o la app web. Instala el repositorio, realiza los pasos de configuracióny detecta discrepancias directamente desde la terminal.</p>
 <h3 id="novedades-del-parche">Novedades del parche</h3>
 <h4 id="comandos-principales-organizados-por-fases">Comandos principales, organizados por fases</h4>
